@@ -7,10 +7,11 @@ from mkdocs import utils as mkdocs_utils
 from mkdocs.config import config_options, Config
 from mkdocs.plugins import BasePlugin
 
+
 class MetaDescription(BasePlugin):
 
     config_scheme = (
-        ('param', config_options.Type(mkdocs_utils.string_types, default='')),
+        ('param', config_options.Type(str, default="")),
     )
 
     def __init__(self):
@@ -29,7 +30,7 @@ class MetaDescription(BasePlugin):
     def on_nav(self, nav, config, files):
         return nav
 
-    def on_env(self, env, config, site_nav):
+    def on_env(self, env, config, files):
         return env
 
     def on_config(self, config):
@@ -47,16 +48,16 @@ class MetaDescription(BasePlugin):
     def on_post_template(self, output_content, template_name, config):
         return output_content
     
-    def on_pre_page(self, page, config, site_nav):
+    def on_pre_page(self, page, config, files):
         return page
 
     def on_page_read_source(self, page, config):
         return ""
 
-    def on_page_markdown(self, markdown, page, config, site_nav):
+    def on_page_markdown(self, markdown, page, config, files):
         return markdown
 
-    def on_page_content(self, html, page, config, site_nav):
+    def on_page_content(self, html, page, config, files):
         return html
 
     def on_page_context(self, context, page, config, nav):
