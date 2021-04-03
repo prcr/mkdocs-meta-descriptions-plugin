@@ -1,11 +1,9 @@
-import os
-import sys
-from timeit import default_timer as timer
-from datetime import datetime, timedelta
+import re
 
-from mkdocs import utils as mkdocs_utils
 from mkdocs.config import config_options, Config
 from mkdocs.plugins import BasePlugin
+
+from bs4 import BeautifulSoup
 
 
 class MetaDescription(BasePlugin):
@@ -18,51 +16,25 @@ class MetaDescription(BasePlugin):
         self.enabled = True
         self.total_time = 0
 
-    def on_serve(self, server):
-        return server
-
-    def on_pre_build(self, config):
-        return
-
-    def on_files(self, files, config):
-        return files
-
-    def on_nav(self, nav, config, files):
-        return nav
-
-    def on_env(self, env, config, files):
-        return env
-
-    def on_config(self, config):
-        return config
-
-    def on_post_build(self, config):
-        return
-
-    def on_pre_template(self, template, template_name, config):
-        return template
-
-    def on_template_context(self, context, template_name, config):
-        return context
-    
-    def on_post_template(self, output_content, template_name, config):
-        return output_content
-    
-    def on_pre_page(self, page, config, files):
-        return page
-
-    def on_page_read_source(self, page, config):
-        return ""
-
-    def on_page_markdown(self, markdown, page, config, files):
-        return markdown
-
     def on_page_content(self, html, page, config, files):
+        if page.meta.get("description"):
+            # Skip pages that have an explicit meta description
+            pass
+        else:
+            # Create description based on the first paragraph
+            first_paragraph = self.get_first_paragraph(html)
+            if first_paragraph is not None and len(first_paragraph) > 0:
+                page.meta["description"] = first_paragraph
         return html
 
-    def on_page_context(self, context, page, config, nav):
-        return context
-
-    def on_post_page(self, output_content, page, config):
-        return output_content
-
+    @staticmethod
+    def get_first_paragraph(html):
+        # Strip page subsections
+        # TODO: Compile regex match pattern
+        html = re.split("<h[2-6]", html, maxsplit=1, flags=re.IGNORECASE)[0]
+        # Select first paragraph directly under body
+        first_paragraph = BeautifulSoup(html, features="lxml").select_one("body > p")
+        if first_paragraph is not None:
+            return first_paragraph.get_text()
+        else:
+            return None
