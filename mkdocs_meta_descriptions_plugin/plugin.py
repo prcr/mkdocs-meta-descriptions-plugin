@@ -29,10 +29,12 @@ class MetaDescription(BasePlugin):
 
     @staticmethod
     def get_first_paragraph(html):
-        # Strip all page content in subsections
+        # Strip page subsections
+        # TODO: Compile regex match pattern
         html = re.split("<h[2-6]", html, maxsplit=1, flags=re.IGNORECASE)[0]
-        # Obtain first paragraph that is direct child of body element
+        # Select first paragraph directly under body
         first_paragraph = BeautifulSoup(html, features="lxml").select_one("body > p")
         if first_paragraph is not None:
             return first_paragraph.get_text()
-        return None
+        else:
+            return None
