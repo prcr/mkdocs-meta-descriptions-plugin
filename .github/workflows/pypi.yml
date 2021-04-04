@@ -23,7 +23,8 @@ jobs:
           python -m build --sdist --wheel --outdir dist/ .
 
       - name: Deploy to Test PyPI
-        uses: pypa/gh-action-pypi-publish@master
+        if: github.ref == 'refs/heads/main'
+        uses: pypa/gh-action-pypi-publish@mastermaster
         with:
           password: ${{ secrets.PYPI_API_TOKEN_TEST }}
           repository_url: https://test.pypi.org/legacy/
