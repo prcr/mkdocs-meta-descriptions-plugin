@@ -4,8 +4,8 @@ on: push
 
 jobs:
   build:
-    name: Build and deploy
-    runs-on: ubuntu-18.04
+    name: Build
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
 
@@ -22,13 +22,23 @@ jobs:
         run:
           python -m build --sdist --wheel --outdir dist/ .
 
+  deploy-test:
+    name: Deploy to Test PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to Test PyPI
         if: github.ref == 'refs/heads/main'
-        uses: pypa/gh-action-pypi-publish@mastermaster
+        uses: pypa/gh-action-pypi-publish@master
         with:
           password: ${{ secrets.PYPI_API_TOKEN_TEST }}
           repository_url: https://test.pypi.org/legacy/
 
+  deploy:
+    name: Deploy to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to PyPI
         if: startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
