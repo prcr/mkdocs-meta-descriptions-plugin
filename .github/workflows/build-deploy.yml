@@ -49,7 +49,9 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN_TEST }}
           repository_url: https://test.pypi.org/legacy/
 
-      - uses: geekyeggo/delete-artifact@v1
+      - name: Delete binaries artifact
+        uses: geekyeggo/delete-artifact@v1
+        if: always()
         with:
           name: dist
 
@@ -72,6 +74,9 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
 
-      - uses: geekyeggo/delete-artifact@v1
+      - name: Delete binaries artifact
+        uses: geekyeggo/delete-artifact@v1
+        if: always()
         with:
           name: dist
+  
