@@ -49,6 +49,10 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN_TEST }}
           repository_url: https://test.pypi.org/legacy/
 
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: dist
+
   deploy:
     name: Deploy to PyPI
     needs: build
@@ -67,3 +71,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: dist
