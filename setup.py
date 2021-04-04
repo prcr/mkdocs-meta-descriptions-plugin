@@ -36,6 +36,8 @@ setup(
             "meta-descriptions = mkdocs_meta_descriptions_plugin.plugin:MetaDescription"
         ]
     },
-    use_scm_version=True,
+    use_scm_version={
+        "local_scheme": "no-local-version"
+    },
     setup_requires=["setuptools_scm"]
 )
