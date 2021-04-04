@@ -1,4 +1,5 @@
 import re
+from html import escape
 
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
@@ -21,7 +22,7 @@ class MetaDescription(BasePlugin):
         # Select first paragraph directly under body
         first_paragraph = BeautifulSoup(html, features="lxml").select_one("body > p")
         if first_paragraph is not None:
-            return first_paragraph.get_text()
+            return escape(first_paragraph.get_text())
         else:
             return None
 
