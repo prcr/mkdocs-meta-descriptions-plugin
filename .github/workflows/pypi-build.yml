@@ -7,7 +7,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
@@ -22,17 +22,36 @@ jobs:
         run:
           python -m build --sdist --wheel --outdir dist/ .
 
+      - name: Upload binaries artifact
+        uses: actions/upload-artifact@v2
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')
+        with:
+          name: dist
+          path: dist/
+
   deploy-test:
     name: Deploy to Test PyPI
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
+      - uses: actions/checkout@v2
+
+      - name: Download binaries artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
+
       - name: Deploy to Test PyPI
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.PYPI_API_TOKEN_TEST }}
           repository_url: https://test.pypi.org/legacy/
+
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: dist
 
   deploy:
     name: Deploy to PyPI
@@ -40,7 +59,19 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags')
     steps:
+      - uses: actions/checkout@v2
+
+      - name: Download binaries artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
+
       - name: Deploy to PyPI
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: dist
