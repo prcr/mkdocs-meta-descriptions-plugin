@@ -1,6 +1,6 @@
 import re
 
-from mkdocs.config import config_options, Config
+from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
 from bs4 import BeautifulSoup
@@ -13,28 +13,25 @@ class MetaDescription(BasePlugin):
     )
 
     def __init__(self):
-        self.enabled = True
-        self.total_time = 0
+        self.headings_pattern = re.compile("<h[2-6]", flags=re.IGNORECASE)
 
-    def on_page_content(self, html, page, config, files):
-        if page.meta.get("description"):
-            # Skip pages that have an explicit meta description
-            pass
-        else:
-            # Create description based on the first paragraph
-            first_paragraph = self.get_first_paragraph(html)
-            if first_paragraph is not None and len(first_paragraph) > 0:
-                page.meta["description"] = first_paragraph
-        return html
-
-    @staticmethod
-    def get_first_paragraph(html):
+    def get_first_paragraph_text(self, html):
         # Strip page subsections
-        # TODO: Compile regex match pattern
-        html = re.split("<h[2-6]", html, maxsplit=1, flags=re.IGNORECASE)[0]
+        html = re.split(self.headings_pattern, html, maxsplit=1)[0]
         # Select first paragraph directly under body
         first_paragraph = BeautifulSoup(html, features="lxml").select_one("body > p")
         if first_paragraph is not None:
             return first_paragraph.get_text()
         else:
             return None
+
+    def on_page_content(self, html, page, config, files):
+        if page.meta.get("description"):
+            # Skip pages that already have an explicit meta description
+            pass
+        else:
+            # Create description based on the first paragraph
+            first_paragraph_text = self.get_first_paragraph_text(html)
+            if first_paragraph_text is not None and len(first_paragraph_text) > 0:
+                page.meta["description"] = first_paragraph_text
+        return html
