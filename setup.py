@@ -1,5 +1,9 @@
 from setuptools import setup, find_packages
 
+file = open("README.md", "r")
+LONG_DESCRIPTION = file.read()
+file.close()
+
 file = open("requirements.txt", "r")
 DEPENDENCIES = file.readlines()
 file.close()
@@ -10,7 +14,8 @@ setup(
     name="mkdocs-meta-descriptions-plugin",
     version="0.0.1",
     description="Generate a meta description from the first paragraph in each MkDocs page",
-    long_description="📑 Generate a meta description from the first paragraph in each MkDocs page",
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
     keywords="mkdocs meta description paragraph",
     url="https://github.com/prcr/mkdocs-meta-descriptions-plugin",
     author="Paulo Ribeiro",
@@ -25,10 +30,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7"
     ],
     packages=find_packages(),
     entry_points={
