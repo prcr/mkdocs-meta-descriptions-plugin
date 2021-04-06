@@ -5,7 +5,7 @@
 
 Use this MkDocs plugin to automatically generate meta descriptions for your pages using the first paragraph of each page. This is useful if you start each page with a short introduction or summary that can be reused as the meta description.
 
-![Meta description obtained from first paragraph of the page](images/readme-example.png)
+![Meta description obtained from first paragraph of the page](https://raw.githubusercontent.com/prcr/mkdocs-meta-descriptions-plugin/main/images/readme-example.png)
 
 For each page, the plugin:
 
