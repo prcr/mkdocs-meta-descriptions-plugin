@@ -22,7 +22,7 @@ class MetaDescription(BasePlugin):
         # Select first paragraph directly under body
         first_paragraph = BeautifulSoup(html, features="lxml").select_one("body > p")
         if first_paragraph is not None:
-            return escape(first_paragraph.get_text())
+            return escape(first_paragraph.get_text().strip())
         else:
             return None
 
