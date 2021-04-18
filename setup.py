@@ -32,7 +32,7 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.6"
     ],
-    packages=find_packages(),
+    packages=find_packages(where="mkdocs-meta-descriptions-plugin"),
     entry_points={
         "mkdocs.plugins": [
             "meta-descriptions = mkdocs_meta_descriptions_plugin.plugin:MetaDescription"
