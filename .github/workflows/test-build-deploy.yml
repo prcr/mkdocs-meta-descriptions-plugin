@@ -24,9 +24,7 @@ jobs:
 
       - name: Test with pytest
         run: |
-          pytest --cov --cov-report=xml
-        env:
-          PYTHONPATH: "."
+          pytest --cov --cov-report=xml .
 
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.0.1
