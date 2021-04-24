@@ -11,8 +11,8 @@ from click.testing import CliRunner
 
 def meta_description(html):
     soup = BeautifulSoup(html, features="lxml")
-    meta_description = soup.find("meta", {"name": "description"})
-    return meta_description["content"] if meta_description else None
+    result = soup.find("meta", {"name": "description"})
+    return result["content"] if result else None
 
 
 class TestPluginBuild:
@@ -34,5 +34,5 @@ class TestPluginBuild:
 
         return output
 
-    def test_default(self, test_build):
-        assert meta_description(test_build["index.md"]) == "Value of site_description on mkdocs.yml"
+    def test_index(self, test_build):
+        assert meta_description(test_build["index.md"]) == "For full documentation visit mkdocs.org."
