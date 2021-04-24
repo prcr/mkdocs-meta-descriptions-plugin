@@ -1,0 +1,9 @@
+site_name: Test mkdocs-meta-descriptions-plugin
+site_description: "Value of site_description on mkdocs.yml"
+
+plugins:
+    - search
+    - meta-descriptions
+
+markdown_extensions:
+    - meta
