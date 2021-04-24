@@ -36,3 +36,23 @@ class TestPluginBuild:
 
     def test_index(self, test_build):
         assert meta_description(test_build["index.md"]) == "For full documentation visit mkdocs.org."
+
+    def test_first_paragraph(self, test_build):
+        assert meta_description(test_build["first_paragraph.md"]) == \
+               "First paragraph."
+
+    def test_first_paragraph_no_heading(self, test_build):
+        assert meta_description(test_build["first_paragraph_no_heading.md"]) == \
+               "First paragraph."
+
+    def test_no_paragraph(self, test_build):
+        assert meta_description(test_build["no_paragraph.md"]) == \
+               "Value of site_description on mkdocs.yml"
+
+    def test_first_paragraph_no_intro(self, test_build):
+        assert meta_description(test_build["first_paragraph_no_intro.md"]) == \
+               "Value of site_description on mkdocs.yml"
+
+    def test_front_matter_description(self, test_build):
+        assert meta_description(test_build["front_matter_description.md"]) == \
+               "Value of meta description on front_matter_description.md"
