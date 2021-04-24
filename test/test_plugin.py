@@ -20,12 +20,12 @@ class TestPluginBuild:
     def test_build(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             result = CliRunner().invoke(build_command,
-                                        ["--config-file", "mkdocs.yml", "--site-dir", tmpdir])
+                                        ["--config-file", "test/mkdocs.yml", "--site-dir", tmpdir])
 
             assert result.exit_code == 0, "MkDocs build failed"
 
             output = {}
-            for root, directories, files in os.walk("docs"):
+            for root, directories, files in os.walk("test/docs"):
                 for name in files:
                     if name.endswith(".md"):
                         output_file = Path(tmpdir + "/" + name.replace(".md", ".html"))
