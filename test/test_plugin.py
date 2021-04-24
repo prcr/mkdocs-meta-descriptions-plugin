@@ -35,7 +35,8 @@ class TestPluginBuild:
         return output
 
     def test_index(self, test_build):
-        assert meta_description(test_build["index.md"]) == "For full documentation visit mkdocs.org."
+        assert meta_description(test_build["index.md"]) == \
+               "For full documentation visit mkdocs.org."
 
     def test_first_paragraph(self, test_build):
         assert meta_description(test_build["first_paragraph.md"]) == \
