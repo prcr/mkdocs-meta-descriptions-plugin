@@ -25,7 +25,7 @@ class TestPluginBuild:
             assert result.exit_code == 0, "MkDocs build failed"
 
             output = {}
-            for root, directories, files in os.walk("test/docs"):
+            for _, _, files in os.walk("test/docs"):
                 for name in files:
                     if name.endswith(".md"):
                         output_file = Path(tmpdir + "/" + name.replace(".md", ".html"))
