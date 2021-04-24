@@ -21,7 +21,12 @@ class MetaDescription(BasePlugin):
         html = re.split(self.headings_pattern, html, maxsplit=1)[0]
         # Select first paragraph directly under body
         first_paragraph = BeautifulSoup(html, features="lxml").select_one("body > p")
-        return escape(first_paragraph.get_text().strip()) if first_paragraph is not None else ""
+        if first_paragraph is not None:
+            first_paragraph_text = first_paragraph.get_text().strip()
+            first_paragraph_text = escape(first_paragraph_text)
+            return first_paragraph_text
+        else:
+            return ""
 
     def on_page_content(self, html, page, config, files):
         if page.meta.get("description"):

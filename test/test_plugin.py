@@ -57,3 +57,8 @@ class TestPluginBuild:
     def test_front_matter_description(self, test_build):
         assert meta_description(test_build["front_matter_description.md"]) == \
                "Value of meta description on front_matter_description.md"
+
+    def test_escape_html_entities(self, test_build):
+        assert meta_description(test_build["escape_html_entities.md"]) == \
+               "First paragraph with HTML entities: \"quotes\", 'single quotes', "\
+               "<greater and less than>, &ampersand&."
