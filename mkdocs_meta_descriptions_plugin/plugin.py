@@ -1,10 +1,12 @@
 import re
 from html import escape
 
+from bs4 import BeautifulSoup
+
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
-from bs4 import BeautifulSoup
+from .export import Export
 
 
 class MetaDescription(BasePlugin):
@@ -38,3 +40,7 @@ class MetaDescription(BasePlugin):
             if len(first_paragraph_text) > 0:
                 page.meta["description"] = first_paragraph_text
         return html
+
+    def on_post_build(self, config):
+        export = Export(config["site_dir"])
+        export.write_csv()
