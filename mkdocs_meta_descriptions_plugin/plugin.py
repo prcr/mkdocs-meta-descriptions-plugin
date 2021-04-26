@@ -1,4 +1,5 @@
 import re
+import logging
 from html import escape
 
 from bs4 import BeautifulSoup
@@ -7,6 +8,9 @@ from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
 from .export import Export
+
+PLUGIN_TAG = "[meta-descriptions] "
+logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
 
 
 class MetaDescription(BasePlugin):
@@ -19,7 +23,7 @@ class MetaDescription(BasePlugin):
         self.headings_pattern = re.compile("<h[2-6]", flags=re.IGNORECASE)
 
     def get_first_paragraph_text(self, html):
-        # Strip page subsections
+        # Strip page subsections to improve performance
         html = re.split(self.headings_pattern, html, maxsplit=1)[0]
         # Select first paragraph directly under body
         first_paragraph = BeautifulSoup(html, features="lxml").select_one("body > p")
@@ -42,5 +46,9 @@ class MetaDescription(BasePlugin):
         return html
 
     def on_post_build(self, config):
-        export = Export(config["site_dir"])
+        if not config.get("site_url"):
+            logger.warning(PLUGIN_TAG + "Can't export meta descriptions to CSV because site_url is not defined.")
+            return
+
+        export = Export(config)
         export.write_csv()
