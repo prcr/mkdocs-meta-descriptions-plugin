@@ -30,7 +30,7 @@ jobs:
 
       - name: Test with pytest
         run:
-          pytest --cov --cov-report=xml
+          pytest --cov
         env:
           PYTHONPATH: "."
 
