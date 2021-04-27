@@ -1,6 +1,7 @@
 [run]
 source = mkdocs_meta_descriptions_plugin
-branch = True
+branch = true
+parallel = true
 
 [xml]
 output = coverage.xml

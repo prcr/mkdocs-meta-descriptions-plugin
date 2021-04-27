@@ -30,9 +30,47 @@ jobs:
 
       - name: Test with pytest
         run:
-          pytest --cov --cov-report=xml
+          pytest --cov
         env:
-          PYTHONPATH: "."
+          PYTHONPATH: .
+          COVERAGE_FILE: .coverage.${{ matrix.python-version }}
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: .coverage.${{ matrix.python-version }}
+          retention-days: 3
+
+  upload-coverage:
+    name: Upload coverage
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r test/requirements.txt
+
+      - name: Download binaries artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+
+      - name: Combine coverage data
+        run:
+          coverage combine
+
+      - name: Generate XML report of coverage results
+        run:
+          coverage xml
 
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.0.1
@@ -70,6 +108,7 @@ jobs:
         with:
           name: dist
           path: dist/
+          retention-days: 3
 
   deploy-test:
     name: Deploy to Test PyPI
@@ -91,12 +130,6 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN_TEST }}
           repository_url: https://test.pypi.org/legacy/
 
-      - name: Delete binaries artifact
-        uses: geekyeggo/delete-artifact@v1
-        if: always()
-        with:
-          name: dist
-
   deploy:
     name: Deploy to PyPI
     needs: build
@@ -115,10 +148,3 @@ jobs:
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
-
-      - name: Delete binaries artifact
-        uses: geekyeggo/delete-artifact@v1
-        if: always()
-        with:
-          name: dist
-  
