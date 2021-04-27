@@ -12,7 +12,7 @@ logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
 
 
 class Export():
-    def __init__(self, config, output_file="meta-descriptions.csv"):
+    def __init__(self, config, output_file="meta_descriptions.csv"):
         self.site_dir = config.get("site_dir")
         self.site_url = config.get("site_url")
         self.use_directory_urls = config.get("use_directory_urls")
@@ -58,7 +58,7 @@ class Export():
                     count += 1
                     meta_descriptions[page_path] = meta_element.get("content")
                 else:
-                    meta_descriptions[page_path] = "[No description found]"
+                    meta_descriptions[page_path] = ""
         if count != len(self.pages):
             logger.warning(PLUGIN_TAG + f"Didn't find meta descriptions for {len(self.pages) - count} HTML pages")
         return meta_descriptions
