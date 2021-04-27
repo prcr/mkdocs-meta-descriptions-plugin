@@ -16,11 +16,12 @@ logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
 class MetaDescription(BasePlugin):
 
     config_scheme = (
-        ('param', config_options.Type(str, default="")),
+        ("export_csv", config_options.Type(bool, default=False)),
     )
 
     def __init__(self):
         self.headings_pattern = re.compile("<h[2-6]", flags=re.IGNORECASE)
+        self.export_csv = False
 
     def get_first_paragraph_text(self, html):
         # Strip page subsections to improve performance
@@ -46,9 +47,10 @@ class MetaDescription(BasePlugin):
         return html
 
     def on_post_build(self, config):
-        if not config.get("site_url"):
-            logger.warning(PLUGIN_TAG + "Can't export meta descriptions to CSV because site_url is not defined.")
-            return
-
-        export = Export(config)
-        export.write_csv()
+        if self.config.get("export_csv", False):
+            # Export meta descriptions to CSV file
+            if not config.get("site_url"):
+                logger.warning(PLUGIN_TAG + "Can't export meta descriptions to CSV because site_url is not defined.")
+                return
+            export = Export(config)
+            export.write_csv()
