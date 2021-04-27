@@ -70,7 +70,7 @@ jobs:
 
       - name: Generate XML report of coverage results
         run:
-          coverage combine
+          coverage xml
 
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.0.1
