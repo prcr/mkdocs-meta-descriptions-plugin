@@ -3,7 +3,7 @@ from mkdocs_meta_descriptions_plugin.plugin import MetaDescription
 
 class TestPluginClass:
     test_configuration = {
-        "param": ""
+        "export_csv": False
     }
 
     def test_load_config_errors(self):
