@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 file = open("README.md", "r")
 LONG_DESCRIPTION = file.read()
@@ -35,7 +35,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9"
     ],
-    packages=find_packages(where="mkdocs-meta-descriptions-plugin"),
+    packages=["mkdocs_meta_descriptions_plugin"],
     entry_points={
         "mkdocs.plugins": [
             "meta-descriptions = mkdocs_meta_descriptions_plugin.plugin:MetaDescription"
