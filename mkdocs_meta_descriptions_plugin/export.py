@@ -71,4 +71,4 @@ class Export():
                 for page, meta_description in self.meta_descriptions.items():
                     csv_writer.writerow([os.path.relpath(page, self.site_dir), meta_description])
         else:
-            logger.error(PLUGIN_TAG + f"Can't find meta descriptions to write to CSV file")
+            logger.error(PLUGIN_TAG + "Can't find meta descriptions to write to CSV file")
