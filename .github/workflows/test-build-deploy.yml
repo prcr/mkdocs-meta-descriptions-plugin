@@ -34,12 +34,49 @@ jobs:
         env:
           PYTHONPATH: "."
 
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: .coverage*
+
+  upload-coverage:
+    name: Upload coverage
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: "3.x"
+
+      - name: Download binaries artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+
+      - name: Combine coverage data
+        run:
+          coverage combine
+
+      - name: Generate XML report of coverage results
+        run:
+          coverage combine
+
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1.0.1
         if: always()
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage.xml
+
+      - name: Delete coverage artifact
+        uses: geekyeggo/delete-artifact@v1
+        if: always()
+        with:
+          name: coverage
 
   build:
     name: Build
