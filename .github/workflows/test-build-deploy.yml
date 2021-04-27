@@ -39,6 +39,7 @@ jobs:
         with:
           name: coverage
           path: .coverage*
+          retention-days: 3
 
   upload-coverage:
     name: Upload coverage
@@ -77,12 +78,6 @@ jobs:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage.xml
 
-      - name: Delete coverage artifact
-        uses: geekyeggo/delete-artifact@v1
-        if: always()
-        with:
-          name: coverage
-
   build:
     name: Build
     needs: test
@@ -112,6 +107,7 @@ jobs:
         with:
           name: dist
           path: dist/
+          retention-days: 3
 
   deploy-test:
     name: Deploy to Test PyPI
@@ -133,12 +129,6 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN_TEST }}
           repository_url: https://test.pypi.org/legacy/
 
-      - name: Delete binaries artifact
-        uses: geekyeggo/delete-artifact@v1
-        if: always()
-        with:
-          name: dist
-
   deploy:
     name: Deploy to PyPI
     needs: build
@@ -157,10 +147,3 @@ jobs:
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
-
-      - name: Delete binaries artifact
-        uses: geekyeggo/delete-artifact@v1
-        if: always()
-        with:
-          name: dist
-  
