@@ -28,7 +28,7 @@ class TestPluginBuild:
             for _, _, files in os.walk("test/docs"):
                 for name in files:
                     if name.endswith(".md"):
-                        output_file = Path(tmpdir + "/" + name.replace(".md", ".html"))
+                        output_file = Path(tmpdir) / name.replace(".md", ".html")
                         assert output_file.exists(), f"{name} missing in output"
                         output[name] = output_file.read_text()
 

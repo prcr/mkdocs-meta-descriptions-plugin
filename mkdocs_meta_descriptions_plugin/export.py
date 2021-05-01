@@ -11,7 +11,7 @@ PLUGIN_TAG = "[meta-descriptions] "
 logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
 
 
-class Export():
+class Export:
     def __init__(self, config, output_file="meta_descriptions.csv"):
         self.site_dir = config.get("site_dir")
         self.site_url = config.get("site_url")
