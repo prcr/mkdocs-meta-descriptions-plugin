@@ -1,0 +1,15 @@
+site_name: Test mkdocs-meta-descriptions-plugin
+site_description: "Value of site_description on mkdocs.yml"
+
+use_directory_urls: false
+
+theme:
+    name: material
+
+plugins:
+    - search
+    - meta-descriptions:
+        export-csv: true
+
+markdown_extensions:
+    - meta
