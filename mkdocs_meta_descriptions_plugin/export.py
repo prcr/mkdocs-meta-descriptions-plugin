@@ -23,11 +23,11 @@ class Export:
         self.pages = None
         self.meta_descriptions = None
         if self.site_dir and self.site_url and self.output_path:
-            self.pages = self.__parse_sitemap()
+            self.pages = self._parse_sitemap()
             if self.pages:
-                self.meta_descriptions = self.__read_descriptions()
+                self.meta_descriptions = self._read_descriptions()
 
-    def __parse_sitemap(self):
+    def _parse_sitemap(self):
         sitemap_path = os.path.join(self.site_dir, "sitemap.xml")
         if not os.path.isfile(sitemap_path):
             logger.error(PLUGIN_TAG + f"Can't open sitemap {sitemap_path}")
@@ -39,7 +39,7 @@ class Export:
             parser = XMLSitemapParser("", sitemap_content, 0, None)
         return parser.sitemap().pages
 
-    def __read_descriptions(self):
+    def _read_descriptions(self):
         meta_descriptions = {}
         logger.info(PLUGIN_TAG + f"Reading meta descriptions from {len(self.pages)} HTML pages")
         count = 0
