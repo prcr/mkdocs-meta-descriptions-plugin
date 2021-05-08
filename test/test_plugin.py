@@ -1,72 +1,94 @@
-import os
 import pytest
+import glob
 import tempfile
-from pathlib import Path
+import os.path
 
 from mkdocs.__main__ import build_command
+from mkdocs.structure.files import File, Files
 
 from bs4 import BeautifulSoup
 from click.testing import CliRunner
 
 
-def meta_description(html):
-    soup = BeautifulSoup(html, features="lxml")
-    result = soup.find("meta", {"name": "description"})
-    return result["content"] if result else None
+mkdocs_yml_list = glob.glob("test/**.yml")
+markdown_files_list = [file[len("test/docs/"):] for file in glob.glob("test/docs/**.md")]
 
 
-@pytest.fixture(params=["mkdocs.yml", "mkdocs-export-csv.yml"])
-def build(request):
-    config_file = Path("test") / request.param
+def get_meta_description(files, markdown_file_path):
+    html_file_path = files.get_file_from_path(markdown_file_path).abs_dest_path
+    with open(html_file_path) as file:
+        html = file.read()
+        soup = BeautifulSoup(html, features="lxml")
+        result = soup.find("meta", {"name": "description"})
+        return result["content"] if result else None
+
+
+@pytest.fixture(scope="module",
+                params=[True, False],
+                ids=["use-directory-urls", "no-directory-urls"])
+def use_directory_urls(request):
+    flag = "--use-directory-urls" if request.param else "--no-directory-urls"
+    return flag, request.param
+
+
+@pytest.fixture(scope="module",
+                params=mkdocs_yml_list)
+def build(request, use_directory_urls):
+    mkdocs_yml = request.param
     with tempfile.TemporaryDirectory() as tempdir:
         result = CliRunner().invoke(build_command,
-                                    ["--config-file", config_file, "--site-dir", tempdir])
-        output = {}
-        for dirpath, _, files in os.walk(tempdir):
-            for file in filter(lambda x: x.endswith((".html", ".csv")), files):
-                file_path = Path(dirpath) / file
-                output[file] = file_path.read_text() if file_path.exists() else None
-        return result, output
+                                    ["--config-file", mkdocs_yml,
+                                     "--site-dir", tempdir,
+                                     use_directory_urls[0]])
+        files = Files([File(file,
+                            os.path.join(os.getcwd(), "test/docs/"),
+                            tempdir,
+                            use_directory_urls[1]) for file in markdown_files_list])
+        yield result, files, mkdocs_yml
 
 
-@pytest.fixture
-def output(build):
-    return build[1]
-
-
-class TestPluginBuild:
+class TestPlugin:
     def test_build(self, build):
-        assert build[0].exit_code == 0, "MkDocs build failed"
+        result, _, _ = build
+        assert result.exit_code == 0
 
-    def test_html_output(self, output):
-        for input_file in output:
-            assert output[input_file] is not None
+    def test_build_output(self, build):
+        _, files, _ = build
+        for f in files:
+            assert os.path.isfile(f.abs_dest_path)
 
-    def test_index(self, output):
-        assert meta_description(output["index.html"]) == \
+    def test_index_md(self, build):
+        _, files, _ = build
+        assert get_meta_description(files, "index.md") == \
                "For full documentation visit mkdocs.org."
 
-    def test_first_paragraph(self, output):
-        assert meta_description(output["first_paragraph.html"]) == \
+    def test_first_paragraph(self, build):
+        _, files, _ = build
+        assert get_meta_description(files, "first_paragraph.md") == \
                "First paragraph."
 
-    def test_first_paragraph_no_heading(self, output):
-        assert meta_description(output["first_paragraph_no_heading.html"]) == \
+    def test_first_paragraph_no_heading(self, build):
+        _, files, _ = build
+        assert get_meta_description(files, "first_paragraph_no_heading.md") == \
                "First paragraph."
 
-    def test_no_paragraph(self, output):
-        assert meta_description(output["no_paragraph.html"]) == \
+    def test_no_paragraph(self, build):
+        _, files, _ = build
+        assert get_meta_description(files, "no_paragraph.md") == \
                "Value of site_description on mkdocs.yml"
 
-    def test_first_paragraph_no_intro(self, output):
-        assert meta_description(output["first_paragraph_no_intro.html"]) == \
+    def test_first_paragraph_no_intro(self, build):
+        _, files, _ = build
+        assert get_meta_description(files, "first_paragraph_no_intro.md") == \
                "Value of site_description on mkdocs.yml"
 
-    def test_front_matter_description(self, output):
-        assert meta_description(output["front_matter_description.html"]) == \
+    def test_front_matter_description(self, build):
+        _, files, _ = build
+        assert get_meta_description(files, "front_matter_description.md") == \
                "Value of meta description on front_matter_description.md"
 
-    def test_escape_html_entities(self, output):
-        assert meta_description(output["escape_html_entities.html"]) == \
+    def test_escape_html_entities(self, build):
+        _, files, _ = build
+        assert get_meta_description(files, "escape_html_entities.md") == \
                "First paragraph with HTML entities: \"quotes\", 'single quotes', "\
                "<greater and less than>, &ampersand&."
