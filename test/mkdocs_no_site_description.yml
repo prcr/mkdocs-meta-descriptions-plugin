@@ -1,0 +1,11 @@
+site_name: Test mkdocs-meta-descriptions-plugin
+
+theme:
+    name: material
+
+plugins:
+    - search
+    - meta-descriptions
+
+markdown_extensions:
+    - meta
