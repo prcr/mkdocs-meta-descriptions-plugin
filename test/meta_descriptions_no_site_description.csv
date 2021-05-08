@@ -5,3 +5,5 @@ first_paragraph_no_heading/index.html,First paragraph.
 first_paragraph_no_intro/index.html,
 first_paragraph_no_paragraph/index.html,
 front_matter_description/index.html,Value of meta description on front_matter_description.md
+subdirectory/index.html,For full documentation visit mkdocs.org.
+subdirectory/first_paragraph/index.html,First paragraph.

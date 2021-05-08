@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 from click.testing import CliRunner
 
 
-mkdocs_yml_list = glob.glob("test/**.yml")
-markdown_files_list = [file[len("test/docs/"):] for file in glob.glob("test/docs/**.md")]
+mkdocs_yml_list = glob.glob("test/*.yml")
+markdown_files_list = [file[len("test/docs/"):] for file in glob.glob("test/docs/**/*.md", recursive=True)]
 
 
 def get_meta_description(files, markdown_file_path):
