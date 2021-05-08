@@ -1,7 +1,7 @@
 import os
 import re
 import logging
-from urllib.parse import unquote
+from urllib.parse import urlparse, unquote
 import csv
 
 from bs4 import BeautifulSoup
@@ -47,7 +47,8 @@ class Export:
         count = 0
         for page in self._pages:
             # Transform URLs into local file names
-            page_path = os.path.join(self._site_dir, unquote(page.url).replace(self._site_url, ""))
+            url_path = unquote(urlparse(page.url).path)[1:]
+            page_path = os.path.join(self._site_dir, url_path)
             if self._use_directory_urls:
                 page_path = os.path.join(page_path, "index.html")
             with open(page_path) as page_file:
