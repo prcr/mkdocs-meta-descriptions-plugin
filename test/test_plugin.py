@@ -121,7 +121,25 @@ class TestPlugin:
 
 
 class TestExport:
-    def test_export_csv(self, build):
+    def test_export_csv_build(self, build):
+        result, files, mkdocs_yml, _ = build
+        if "export_csv" in mkdocs_yml and "no_site_url" not in mkdocs_yml:
+            expected = (
+                f"INFO    -  [meta-descriptions] Reading meta descriptions from {len(files)} HTML pages"
+            )
+            assert expected in result.output
+
+    def test_export_csv_build_no_site_url(self, build):
+        result, _, mkdocs_yml, _ = build
+        if "export_csv" in mkdocs_yml:
+            if "no_site_url.yml" in mkdocs_yml:
+                expected = (
+                    "WARNING -  [meta-descriptions] Can't export meta descriptions to CSV "
+                    "because site_url is not defined."
+                )
+                assert expected in result.output
+
+    def test_export_csv_output(self, build):
         _, files, mkdocs_yml, use_directory_urls = build
         if "export_csv.yml" in mkdocs_yml:
             index_path = files.get_file_from_path("index.md").abs_dest_path
@@ -131,7 +149,7 @@ class TestExport:
             else:
                 assert filecmp.cmp("test/meta_descriptions_no_directory_urls.csv", csv_path)
 
-    def test_export_csv_no_site_description(self, build):
+    def test_export_csv_output_no_site_description(self, build):
         _, files, mkdocs_yml, use_directory_urls = build
         if "export_csv_no_site_description.yml" in mkdocs_yml:
             index_path = files.get_file_from_path("index.md").abs_dest_path
@@ -140,13 +158,3 @@ class TestExport:
                 assert filecmp.cmp("test/meta_descriptions_no_site_description.csv", csv_path)
             else:
                 assert filecmp.cmp("test/meta_descriptions_no_site_description_no_directory_urls.csv", csv_path)
-
-    def test_export_csv_no_site_url(self, build):
-        result, _, mkdocs_yml, _ = build
-        if "export_csv" in mkdocs_yml:
-            if "no_site_url" in mkdocs_yml:
-                expected = (
-                    "WARNING -  [meta-descriptions] Can't export meta descriptions to CSV "
-                    "because site_url is not defined."
-                )
-                assert expected in result.output
