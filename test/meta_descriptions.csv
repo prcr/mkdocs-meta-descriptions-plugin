@@ -1,6 +1,7 @@
 Page,Meta description
 index.html,For full documentation visit mkdocs.org.
 escape_html_entities/index.html,"First paragraph with HTML entities: ""quotes"", 'single quotes', <greater and less than>, &ampersand&."
+filename with spaces/index.html,First paragraph.
 first_paragraph/index.html,First paragraph.
 first_paragraph_no_heading/index.html,First paragraph.
 first_paragraph_no_intro/index.html,Value of site_description on mkdocs.yml
