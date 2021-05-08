@@ -71,6 +71,7 @@ class Export:
             logger.info(PLUGIN_TAG + f"Writing {self._output_path}")
             with open(self._output_path, "w") as csv_file:
                 csv_writer = csv.writer(csv_file)
+                csv_writer.writerow(["Page", "Meta description"])
                 for page, meta_description in self._meta_descriptions.items():
                     csv_writer.writerow([os.path.relpath(page, self._site_dir), meta_description])
         else:
