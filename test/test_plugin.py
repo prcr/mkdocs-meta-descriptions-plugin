@@ -59,36 +59,60 @@ class TestPlugin:
 
     def test_index_md(self, build):
         _, files, _ = build
-        assert get_meta_description(files, "index.md") == \
-               "For full documentation visit mkdocs.org."
+        expected = (
+            "For full documentation visit mkdocs.org."
+        )
+        assert get_meta_description(files, "index.md") == expected
 
     def test_first_paragraph(self, build):
         _, files, _ = build
-        assert get_meta_description(files, "first_paragraph.md") == \
-               "First paragraph."
+        expected = (
+            "First paragraph."
+        )
+        assert get_meta_description(files, "first_paragraph.md") == expected
 
     def test_first_paragraph_no_heading(self, build):
         _, files, _ = build
-        assert get_meta_description(files, "first_paragraph_no_heading.md") == \
-               "First paragraph."
+        expected = (
+            "First paragraph."
+        )
+        assert get_meta_description(files, "first_paragraph_no_heading.md") == expected
 
-    def test_no_paragraph(self, build):
+    def test_first_paragraph_no_paragraph(self, build):
         _, files, _ = build
-        assert get_meta_description(files, "no_paragraph.md") == \
-               "Value of site_description on mkdocs.yml"
+        expected = (
+            "Value of site_description on mkdocs.yml"
+        )
+        assert get_meta_description(files, "first_paragraph_no_paragraph.md") == expected
 
     def test_first_paragraph_no_intro(self, build):
         _, files, _ = build
-        assert get_meta_description(files, "first_paragraph_no_intro.md") == \
-               "Value of site_description on mkdocs.yml"
+        expected = (
+            "Value of site_description on mkdocs.yml"
+        )
+        assert get_meta_description(files, "first_paragraph_no_intro.md") == expected
 
     def test_front_matter_description(self, build):
         _, files, _ = build
-        assert get_meta_description(files, "front_matter_description.md") == \
-               "Value of meta description on front_matter_description.md"
+        expected = (
+            "Value of meta description on front_matter_description.md"
+        )
+        assert get_meta_description(files, "front_matter_description.md") == expected
 
     def test_escape_html_entities(self, build):
         _, files, _ = build
-        assert get_meta_description(files, "escape_html_entities.md") == \
-               "First paragraph with HTML entities: \"quotes\", 'single quotes', "\
-               "<greater and less than>, &ampersand&."
+        expected = (
+            "First paragraph with HTML entities: \"quotes\", 'single quotes', "
+            "<greater and less than>, &ampersand&."
+        )
+        assert get_meta_description(files, "escape_html_entities.md") == expected
+
+
+class TestExport:
+    def test_no_site_url(self, build):
+        result, _, mkdocs_yml = build
+        if "export_csv_no_site_url" in mkdocs_yml:
+            expected = (
+                "WARNING -  [meta-descriptions] Can't export meta descriptions to CSV because site_url is not defined."
+            )
+            assert expected in result.output
