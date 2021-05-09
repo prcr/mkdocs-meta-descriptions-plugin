@@ -5,7 +5,6 @@ from urllib.parse import urlparse, unquote
 import csv
 
 from bs4 import BeautifulSoup
-from usp.fetch_parse import XMLSitemapParser
 
 PLUGIN_TAG = "[meta-descriptions] "
 logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
@@ -22,11 +21,9 @@ class Export:
         self._body_pattern = re.compile("<body", flags=re.IGNORECASE)
         self._output_path = os.path.join(self._site_dir, output_file)
 
-        self._pages = None
-        self._meta_descriptions = None
         if self._site_dir and self._site_url and self._output_path:
-            self._pages = self._parse_sitemap()
-            if self._pages:
+            self._page_paths = self._parse_sitemap()
+            if len(self._page_paths) > 0:
                 self._meta_descriptions = self._read_descriptions()
 
     def _parse_sitemap(self):
@@ -34,23 +31,25 @@ class Export:
         if not os.path.isfile(sitemap_path):
             logger.error(PLUGIN_TAG + f"Can't open sitemap {sitemap_path}")
             return None
-
+        page_paths = []
         with open(sitemap_path) as sitemap_file:
             logger.info(PLUGIN_TAG + f"Reading {sitemap_path}")
             sitemap_content = sitemap_file.read()
-            parser = XMLSitemapParser("", sitemap_content, 0, None)
-        return parser.sitemap().pages
+            soup = BeautifulSoup(sitemap_content, features="lxml")
+            for loc in soup.select("url > loc"):
+                # Transform URLs into local file names
+                url_path = unquote(urlparse(loc.text).path)[1:]
+                page_path = os.path.join(self._site_dir, url_path)
+                if self._use_directory_urls:
+                    page_path = os.path.join(page_path, "index.html")
+                page_paths.append(page_path)
+        return page_paths
 
     def _read_descriptions(self):
-        meta_descriptions = {}
-        logger.info(PLUGIN_TAG + f"Reading meta descriptions from {len(self._pages)} HTML pages")
+        logger.info(PLUGIN_TAG + f"Reading meta descriptions from {len(self._page_paths)} HTML pages")
         count = 0
-        for page in self._pages:
-            # Transform URLs into local file names
-            url_path = unquote(urlparse(page.url).path)[1:]
-            page_path = os.path.join(self._site_dir, url_path)
-            if self._use_directory_urls:
-                page_path = os.path.join(page_path, "index.html")
+        meta_descriptions = {}
+        for page_path in self._page_paths:
             with open(page_path) as page_file:
                 html = page_file.read()
                 # Strip page body to improve performance
@@ -62,8 +61,9 @@ class Export:
                     meta_descriptions[page_path] = meta_element.get("content")
                 else:
                     meta_descriptions[page_path] = ""
-        if count != len(self._pages):
-            logger.warning(PLUGIN_TAG + f"Didn't find meta descriptions for {len(self._pages) - count} HTML pages")
+        if count != len(self._page_paths):
+            logger.warning(PLUGIN_TAG + "Couldn't find meta descriptions for "
+                                        f"{len(self._page_paths) - count} HTML pages")
         return meta_descriptions
 
     def write_csv(self):
