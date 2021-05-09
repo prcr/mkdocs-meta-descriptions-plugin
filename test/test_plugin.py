@@ -135,7 +135,7 @@ class TestExport:
             if "no_site_url.yml" in mkdocs_yml:
                 expected = (
                     "WARNING -  [meta-descriptions] Can't export meta descriptions to CSV "
-                    "because site_url is not defined."
+                    "because site_url isn't defined."
                 )
                 assert expected in result.output
 
