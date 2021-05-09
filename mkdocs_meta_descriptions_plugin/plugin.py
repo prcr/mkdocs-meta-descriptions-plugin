@@ -1,5 +1,4 @@
 import re
-import logging
 from html import escape
 
 from bs4 import BeautifulSoup
@@ -7,10 +6,8 @@ from bs4 import BeautifulSoup
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
+from .common import logger, PLUGIN_TAG
 from .export import Export
-
-PLUGIN_TAG = "[meta-descriptions] "
-logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
 
 
 class MetaDescription(BasePlugin):

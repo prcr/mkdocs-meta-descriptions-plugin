@@ -1,13 +1,11 @@
 import os
 import re
-import logging
 from urllib.parse import urlparse, unquote
 import csv
 
 from bs4 import BeautifulSoup
 
-PLUGIN_TAG = "[meta-descriptions] "
-logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
+from .common import logger, PLUGIN_TAG
 
 
 class Export:
@@ -47,7 +45,7 @@ class Export:
 
     def _read_descriptions(self):
         logger.info(PLUGIN_TAG + f"Reading meta descriptions from {len(self._page_paths)} HTML pages")
-        count = 0
+        count_missing = 0
         meta_descriptions = {}
         for page_path in self._page_paths:
             with open(page_path) as page_file:
@@ -57,13 +55,12 @@ class Export:
                 soup = BeautifulSoup(html, features="lxml")
                 meta_element = soup.select_one("meta[name=\"description\"]")
                 if meta_element:
-                    count += 1
                     meta_descriptions[page_path] = meta_element.get("content")
                 else:
+                    count_missing += 1
                     meta_descriptions[page_path] = ""
-        if count != len(self._page_paths):
-            logger.warning(PLUGIN_TAG + "Couldn't find meta descriptions for "
-                                        f"{len(self._page_paths) - count} HTML pages")
+        if count_missing > 0:
+            logger.warning(PLUGIN_TAG + f"Couldn't find meta descriptions for {count_missing} HTML pages")
         return meta_descriptions
 
     def write_csv(self):
