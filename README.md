@@ -64,9 +64,9 @@ plugins:
       export_csv: false  
 ```
 
-### `export_csv` (default is `false`)
+### `export_csv`
 
-If `true`, the plugin exports the meta descriptions of all Markdown pages site to a CSV file `site_dir/meta_descriptions.csv`.
+If `true`, the plugin exports the meta descriptions of all Markdown pages site to the CSV file `site_dir/meta_descriptions.csv`. The default is `false`.
 
 This is useful to review and keep track of all the meta descriptions in your pages, especially if you're maintaining a big site.
 
