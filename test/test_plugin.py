@@ -1,15 +1,13 @@
-import pytest
-import glob
-import tempfile
-import os.path
 import filecmp
+import glob
+import os.path
+import tempfile
 
-from mkdocs.__main__ import build_command
-from mkdocs.structure.files import File, Files
-
+import pytest
 from bs4 import BeautifulSoup
 from click.testing import CliRunner
-
+from mkdocs.__main__ import build_command
+from mkdocs.structure.files import File, Files
 
 mkdocs_yml_list = glob.glob("test/*.yml")
 markdown_files_list = [file[len("test/docs/"):] for file in glob.glob("test/docs/**/*.md", recursive=True)]
