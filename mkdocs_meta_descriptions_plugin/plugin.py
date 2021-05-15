@@ -1,9 +1,9 @@
 import re
 from html import escape
 
+from bs4 import BeautifulSoup
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
-from bs4 import BeautifulSoup
 
 from .export import Export
 

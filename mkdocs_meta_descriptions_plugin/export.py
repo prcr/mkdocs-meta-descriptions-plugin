@@ -1,10 +1,10 @@
+import csv
 import os
 import re
-import csv
 
 from bs4 import BeautifulSoup
 
-from .common import logger, PLUGIN_TAG
+from .common import PLUGIN_TAG, logger
 
 
 class Export:
