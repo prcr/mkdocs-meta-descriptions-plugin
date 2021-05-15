@@ -6,7 +6,8 @@ theme:
 
 plugins:
     - search
-    - meta-descriptions
+    - meta-descriptions:
+        export_csv: true
 
 markdown_extensions:
     - meta
