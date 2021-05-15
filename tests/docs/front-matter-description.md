@@ -1,5 +1,5 @@
 ---
-description: Value of meta description on front_matter_description.md
+description: Value of meta description on front-matter-description.md
 ---
 
 # Heading 1

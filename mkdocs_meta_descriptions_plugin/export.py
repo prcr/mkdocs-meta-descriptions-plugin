@@ -41,7 +41,7 @@ class Export:
             )
         return meta_descriptions
 
-    def write_csv(self, output_file="meta_descriptions.csv"):
+    def write_csv(self, output_file="meta-descriptions.csv"):
         output_file_path = os.path.join(self._site_dir, output_file)
         if self._meta_descriptions:
             logger.info(PLUGIN_TAG + f"Writing {output_file_path}")
