@@ -54,4 +54,22 @@ To set up and use the plugin:
       - meta
     ```
 
+## Configuring the plugin
+
+Use the following options to configure the behavior of the plugin:
+
+```yaml
+plugins:
+  - meta-descriptions:
+      export_csv: false  
+```
+
+### `export_csv`
+
+If `true`, the plugin exports the meta descriptions of all Markdown pages to the CSV file `site_dir/meta_descriptions.csv`. The default is `false`.
+
+This is useful to review and keep track of all the meta descriptions in your pages, especially if you're maintaining a big site.
+
+## See also
+
 Read more about [using MkDocs plugins](http://www.mkdocs.org/user-guide/plugins/).

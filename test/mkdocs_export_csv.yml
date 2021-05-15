@@ -1,12 +1,14 @@
 site_name: Test mkdocs-meta-descriptions-plugin
 site_description: "Value of site_description on mkdocs.yml"
+site_url: "https://example.com/"
 
 theme:
     name: material
 
 plugins:
     - search
-    - meta-descriptions
+    - meta-descriptions:
+        export_csv: true
 
 markdown_extensions:
     - meta
