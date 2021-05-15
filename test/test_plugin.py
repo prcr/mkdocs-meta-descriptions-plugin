@@ -129,16 +129,6 @@ class TestExport:
             )
             assert expected in result.output
 
-    def test_export_csv_build_no_site_url(self, build):
-        result, _, mkdocs_yml, _ = build
-        if "export_csv" in mkdocs_yml:
-            if "no_site_url.yml" in mkdocs_yml:
-                expected = (
-                    "WARNING -  [meta-descriptions] Can't export meta descriptions to CSV "
-                    "because site_url isn't defined."
-                )
-                assert expected in result.output
-
     def test_export_csv_output(self, build):
         _, files, mkdocs_yml, use_directory_urls = build
         if "export_csv.yml" in mkdocs_yml:
