@@ -9,9 +9,9 @@ from click.testing import CliRunner
 from mkdocs.__main__ import build_command
 from mkdocs.structure.files import File, Files
 
-mkdocs_yml_list = glob.glob("test/*.yml")
+mkdocs_yml_list = glob.glob("tests/*.yml")
 markdown_files_list = [
-    file[len("test/docs/") :] for file in glob.glob("test/docs/**/*.md", recursive=True)
+    file[len("tests/docs/") :] for file in glob.glob("tests/docs/**/*.md", recursive=True)
 ]
 
 
@@ -46,7 +46,7 @@ def build(request, use_directory_urls):
             [
                 File(
                     file,
-                    os.path.join(os.getcwd(), "test/docs/"),
+                    os.path.join(os.getcwd(), "tests/docs/"),
                     tempdir,
                     use_directory_urls[1],
                 )
@@ -127,10 +127,10 @@ class TestExport:
             index_path = files.get_file_from_path("index.md").abs_dest_path
             csv_path = index_path.replace("index.html", "meta_descriptions.csv")
             if use_directory_urls:
-                assert filecmp.cmp("test/meta_descriptions.csv", csv_path)
+                assert filecmp.cmp("tests/meta_descriptions.csv", csv_path)
             else:
                 assert filecmp.cmp(
-                    "test/meta_descriptions_no_directory_urls.csv", csv_path
+                    "tests/meta_descriptions_no_directory_urls.csv", csv_path
                 )
 
     def test_export_csv_output_no_site_description(self, build):
@@ -140,10 +140,10 @@ class TestExport:
             csv_path = index_path.replace("index.html", "meta_descriptions.csv")
             if use_directory_urls:
                 assert filecmp.cmp(
-                    "test/meta_descriptions_no_site_description.csv", csv_path
+                    "tests/meta_descriptions_no_site_description.csv", csv_path
                 )
             else:
                 assert filecmp.cmp(
-                    "test/meta_descriptions_no_site_description_no_directory_urls.csv",
+                    "tests/meta_descriptions_no_site_description_no_directory_urls.csv",
                     csv_path,
                 )
