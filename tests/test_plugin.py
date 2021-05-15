@@ -74,36 +74,36 @@ class TestPlugin:
     def test_first_paragraph(self, build):
         _, files, _, _ = build
         expected = "First paragraph."
-        assert get_meta_description(files, "first_paragraph.md") == expected
+        assert get_meta_description(files, "first-paragraph.md") == expected
 
     def test_first_paragraph_no_heading(self, build):
         _, files, _, _ = build
         expected = "First paragraph."
-        assert get_meta_description(files, "first_paragraph_no_heading.md") == expected
+        assert get_meta_description(files, "first-paragraph-no-heading.md") == expected
 
     def test_first_paragraph_no_paragraph(self, build):
         _, files, mkdocs_yml, _ = build
-        if "no_site_description" in mkdocs_yml:
+        if "no-site-description" in mkdocs_yml:
             expected = None
         else:
             expected = "Value of site_description on mkdocs.yml"
         assert (
-            get_meta_description(files, "first_paragraph_no_paragraph.md") == expected
+            get_meta_description(files, "first-paragraph-no-paragraph.md") == expected
         )
 
     def test_first_paragraph_no_intro(self, build):
         _, files, mkdocs_yml, _ = build
-        if "no_site_description" in mkdocs_yml:
+        if "no-site-description" in mkdocs_yml:
             expected = None
         else:
             expected = "Value of site_description on mkdocs.yml"
 
-        assert get_meta_description(files, "first_paragraph_no_intro.md") == expected
+        assert get_meta_description(files, "first-paragraph-no-intro.md") == expected
 
     def test_front_matter_description(self, build):
         _, files, _, _ = build
-        expected = "Value of meta description on front_matter_description.md"
-        assert get_meta_description(files, "front_matter_description.md") == expected
+        expected = "Value of meta description on front-matter-description.md"
+        assert get_meta_description(files, "front-matter-description.md") == expected
 
     def test_escape_html_entities(self, build):
         _, files, _, _ = build
@@ -111,13 +111,13 @@ class TestPlugin:
             "First paragraph with HTML entities: \"quotes\", 'single quotes', "
             "<greater and less than>, &ampersand&."
         )
-        assert get_meta_description(files, "escape_html_entities.md") == expected
+        assert get_meta_description(files, "escape-html-entities.md") == expected
 
 
 class TestExport:
     def test_export_csv_build(self, build):
         result, files, mkdocs_yml, _ = build
-        if "export_csv" in mkdocs_yml and "no_site_url" not in mkdocs_yml:
+        if "export-csv" in mkdocs_yml and "no-site-url" not in mkdocs_yml:
             expected = f"INFO    -  [meta-descriptions] Reading meta descriptions from {len(files)} HTML pages"
             assert expected in result.output
 
@@ -125,25 +125,25 @@ class TestExport:
         _, files, mkdocs_yml, use_directory_urls = build
         if "export_csv.yml" in mkdocs_yml:
             index_path = files.get_file_from_path("index.md").abs_dest_path
-            csv_path = index_path.replace("index.html", "meta_descriptions.csv")
+            csv_path = index_path.replace("index.html", "meta-descriptions.csv")
             if use_directory_urls:
-                assert filecmp.cmp("tests/meta_descriptions.csv", csv_path)
+                assert filecmp.cmp("tests/meta-descriptions.csv", csv_path)
             else:
                 assert filecmp.cmp(
-                    "tests/meta_descriptions_no_directory_urls.csv", csv_path
+                    "tests/meta-descriptions-no-directory-urls.csv", csv_path
                 )
 
     def test_export_csv_output_no_site_description(self, build):
         _, files, mkdocs_yml, use_directory_urls = build
-        if "export_csv_no_site_description.yml" in mkdocs_yml:
+        if "export-csv-no-site_description.yml" in mkdocs_yml:
             index_path = files.get_file_from_path("index.md").abs_dest_path
-            csv_path = index_path.replace("index.html", "meta_descriptions.csv")
+            csv_path = index_path.replace("index.html", "meta-descriptions.csv")
             if use_directory_urls:
                 assert filecmp.cmp(
-                    "tests/meta_descriptions_no_site_description.csv", csv_path
+                    "tests/meta-descriptions-no-site-description.csv", csv_path
                 )
             else:
                 assert filecmp.cmp(
-                    "tests/meta_descriptions_no_site_description_no_directory_urls.csv",
+                    "tests/meta-descriptions-no-site-description-no-directory-urls.csv",
                     csv_path,
                 )
