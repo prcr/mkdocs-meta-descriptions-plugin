@@ -16,7 +16,9 @@ class Export:
         self._meta_descriptions = self._read_meta_descriptions(pages)
 
     def _read_meta_descriptions(self, pages):
-        logger.info(PLUGIN_TAG + f"Reading meta descriptions from {len(pages)} HTML pages")
+        logger.info(
+            PLUGIN_TAG + f"Reading meta descriptions from {len(pages)} HTML pages"
+        )
         count_missing = 0
         meta_descriptions = {}
         # Get meta descriptions only for Markdown documentation pages
@@ -26,14 +28,17 @@ class Export:
                 # Strip page body to improve performance
                 html = re.split(self._body_pattern, html, maxsplit=1)[0]
                 soup = BeautifulSoup(html, features="lxml")
-                meta_tag = soup.select_one("meta[name=\"description\"]")
+                meta_tag = soup.select_one('meta[name="description"]')
                 if meta_tag:
                     meta_descriptions[page.file.dest_path] = meta_tag.get("content")
                 else:
                     count_missing += 1
                     meta_descriptions[page.file.dest_path] = ""
         if count_missing > 0:
-            logger.warning(PLUGIN_TAG + f"Couldn't find meta descriptions for {count_missing} HTML pages")
+            logger.warning(
+                PLUGIN_TAG
+                + f"Couldn't find meta descriptions for {count_missing} HTML pages"
+            )
         return meta_descriptions
 
     def write_csv(self, output_file="meta_descriptions.csv"):
@@ -46,4 +51,6 @@ class Export:
                 for page_rel_path, meta_description in self._meta_descriptions.items():
                     csv_writer.writerow([page_rel_path, meta_description])
         else:
-            logger.error(PLUGIN_TAG + "Can't find meta descriptions to write to CSV file")
+            logger.error(
+                PLUGIN_TAG + "Can't find meta descriptions to write to CSV file"
+            )
