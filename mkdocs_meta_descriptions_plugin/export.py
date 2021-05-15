@@ -30,10 +30,10 @@ class Export:
                 soup = BeautifulSoup(html, features="lxml")
                 meta_tag = soup.select_one('meta[name="description"]')
                 if meta_tag:
-                    meta_descriptions[page.file.dest_path] = meta_tag.get("content")
+                    meta_descriptions[page.url] = meta_tag.get("content")
                 else:
                     count_missing += 1
-                    meta_descriptions[page.file.dest_path] = ""
+                    meta_descriptions[page.url] = ""
         if count_missing > 0:
             logger.warning(
                 PLUGIN_TAG
@@ -48,8 +48,8 @@ class Export:
             with open(output_file_path, "w") as csv_file:
                 csv_writer = csv.writer(csv_file)
                 csv_writer.writerow(["Page", "Meta description"])
-                for page_rel_path, meta_description in self._meta_descriptions.items():
-                    csv_writer.writerow([page_rel_path, meta_description])
+                for url, meta_description in self._meta_descriptions.items():
+                    csv_writer.writerow([url, meta_description])
         else:
             logger.error(
                 PLUGIN_TAG + "Can't find meta descriptions to write to CSV file"
