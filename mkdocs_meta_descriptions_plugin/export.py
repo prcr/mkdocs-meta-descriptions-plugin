@@ -29,7 +29,7 @@ class Export:
                 html = page_file.read()
                 # Strip page body to improve performance
                 html = re.split(self._body_pattern, html, maxsplit=1)[0]
-                soup = BeautifulSoup(html, features="lxml")
+                soup = BeautifulSoup(html, "html.parser")
                 meta_tag = soup.select_one('meta[name="description"]')
                 if meta_tag:
                     meta_descriptions[page.url] = meta_tag.get("content")

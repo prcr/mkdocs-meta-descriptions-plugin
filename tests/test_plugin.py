@@ -20,7 +20,7 @@ def get_meta_description(files, markdown_file_path):
     html_file_path = files.get_file_from_path(markdown_file_path).abs_dest_path
     with open(html_file_path) as file:
         html = file.read()
-        soup = BeautifulSoup(html, features="lxml")
+        soup = BeautifulSoup(html, "html.parser")
         result = soup.select_one('meta[name="description"]')
         return result["content"] if result else None
 

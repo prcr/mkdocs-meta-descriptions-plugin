@@ -22,7 +22,7 @@ class MetaDescription(BasePlugin):
         # Strip page subsections to improve performance
         html = re.split(self._headings_pattern, html, maxsplit=1)[0]
         # Select first paragraph directly under body
-        first_paragraph = BeautifulSoup(html, features="lxml").select_one("body > p")
+        first_paragraph = BeautifulSoup(html, "html.parser").select_one("p")
         if first_paragraph is not None:
             # Found the first paragraph, return stripped and escaped text
             return escape(first_paragraph.get_text().strip())
