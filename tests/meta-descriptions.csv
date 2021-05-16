@@ -2,10 +2,10 @@ Page,Meta description
 ,For full documentation visit mkdocs.org.
 escape-html-entities/,"First paragraph with HTML entities: ""quotes"", 'single quotes', <greater and less than>, &ampersand&."
 filename%20with%20spaces/,First paragraph.
-first-paragraph/,First paragraph.
 first-paragraph-no-heading/,First paragraph.
-first-paragraph-no-intro/,Value of site-description on mkdocs.yml
-first-paragraph-no-paragraph/,Value of site-description on mkdocs.yml
+first-paragraph-no-intro/,Value of site_description on mkdocs.yml
+first-paragraph-no-paragraph/,Value of site_description on mkdocs.yml
+first-paragraph/,First paragraph.
 front-matter-description/,Value of meta description on front-matter-description.md
 subdirectory/,For full documentation visit mkdocs.org.
 subdirectory/first-paragraph/,First paragraph.

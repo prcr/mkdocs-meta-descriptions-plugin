@@ -117,13 +117,13 @@ class TestPlugin:
 class TestExport:
     def test_export_csv_build(self, build):
         result, files, mkdocs_yml, _ = build
-        if "export-csv" in mkdocs_yml and "no-site-url" not in mkdocs_yml:
+        if "export-csv" in mkdocs_yml:
             expected = f"INFO    -  [meta-descriptions] Reading meta descriptions from {len(files)} HTML pages"
             assert expected in result.output
 
     def test_export_csv_output(self, build):
         _, files, mkdocs_yml, use_directory_urls = build
-        if "export_csv.yml" in mkdocs_yml:
+        if mkdocs_yml.endswith("mkdocs-export-csv.yml"):
             index_path = files.get_file_from_path("index.md").abs_dest_path
             csv_path = index_path.replace("index.html", "meta-descriptions.csv")
             if use_directory_urls:
@@ -135,7 +135,7 @@ class TestExport:
 
     def test_export_csv_output_no_site_description(self, build):
         _, files, mkdocs_yml, use_directory_urls = build
-        if "export-csv-no-site_description.yml" in mkdocs_yml:
+        if mkdocs_yml.endswith("mkdocs-export-csv-no-site-description.yml"):
             index_path = files.get_file_from_path("index.md").abs_dest_path
             csv_path = index_path.replace("index.html", "meta-descriptions.csv")
             if use_directory_urls:
