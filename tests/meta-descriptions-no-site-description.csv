@@ -1,11 +1,11 @@
 Page,Meta description
-,For full documentation visit mkdocs.org.
-escape-html-entities/,"First paragraph with HTML entities: ""quotes"", 'single quotes', <greater and less than>, &ampersand&."
-filename%20with%20spaces/,First paragraph.
-first-paragraph-no-heading/,First paragraph.
-first-paragraph-no-intro/,
-first-paragraph-no-paragraph/,
-first-paragraph/,First paragraph.
-front-matter-description/,Value of meta description on front-matter-description.md
-subdirectory/,For full documentation visit mkdocs.org.
-subdirectory/first-paragraph/,First paragraph.
+https://example.com/,For full documentation visit mkdocs.org.
+https://example.com/escape-html-entities/,"First paragraph with HTML entities: ""quotes"", 'single quotes', <greater and less than>, &ampersand&."
+https://example.com/filename%20with%20spaces/,First paragraph.
+https://example.com/first-paragraph-no-heading/,First paragraph.
+https://example.com/first-paragraph-no-intro/,
+https://example.com/first-paragraph-no-paragraph/,
+https://example.com/first-paragraph/,First paragraph.
+https://example.com/front-matter-description/,Value of meta description on front-matter-description.md
+https://example.com/subdirectory/,For full documentation visit mkdocs.org.
+https://example.com/subdirectory/first-paragraph/,First paragraph.
