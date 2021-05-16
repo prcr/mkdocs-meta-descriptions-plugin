@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Fixed
 
 -   Write full page URLs in `meta-descriptions.csv` if `site_url` is defined. Fixes [#68](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/68).
+-   Drop lxml dependency by using Python's built-in html.parser instead
 
 ## [v1.0.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v0.0.5...v1.0.0) (2021-05-15)
 
