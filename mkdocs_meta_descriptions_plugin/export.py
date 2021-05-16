@@ -51,7 +51,9 @@ class Export:
                 csv_writer = csv.writer(csv_file)
                 csv_writer.writerow(["Page", "Meta description"])
                 for url_path, meta_description in self._meta_descriptions.items():
-                    csv_writer.writerow([urljoin(self._site_url, url_path), meta_description])
+                    csv_writer.writerow(
+                        [urljoin(self._site_url, url_path), meta_description]
+                    )
         else:
             logger.error(
                 PLUGIN_TAG + "Can't find meta descriptions to write to CSV file"
