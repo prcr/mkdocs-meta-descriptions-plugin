@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Fixed
 
--   Use `site_url` to write the full page URLs in the `meta-descriptions.csv` file. Fixes [#68](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/68).
+-   Write full page URLs in `meta-descriptions.csv` if `site_url` is defined. Fixes [#68](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/68).
 
 ## [v1.0.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v0.0.5...v1.0.0) (2021-05-15)
 
