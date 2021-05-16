@@ -4,13 +4,19 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.1](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v1.0.0...v1.0.1) (2021-05-16)
+
+### Fixed
+
+-   Use `site_url` to write the full page URLs in the `meta-descriptions.csv` file. Fixes [#68](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/68).
+
 ## [v1.0.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v0.0.5...v1.0.0) (2021-05-15)
 
 First stable version.
 
 ### Added
 
--   Support for [exporting meta descriptions](README.md#export_csv) as CSV file. 
+-   Support for [exporting meta descriptions](README.md#export_csv) as CSV file.
 
 ## [v0.0.5](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v0.0.4...v0.0.5) (2021-05-10)
 
@@ -22,7 +28,7 @@ First stable version.
 
 ### Fixed
 
--   Correct package name in setup.py that was preventing the plugin from being used in MkDocs.  
+-   Correct package name in setup.py that was preventing the plugin from being used in MkDocs.
 
 ## [v0.0.3](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v0.0.2...v0.0.3) (2021-04-24)
 
