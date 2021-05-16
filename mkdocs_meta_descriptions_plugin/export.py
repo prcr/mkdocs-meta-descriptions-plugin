@@ -14,7 +14,7 @@ class Export:
     def __init__(self, pages, config):
         self._body_pattern = re.compile("<body", flags=re.IGNORECASE)
         self._site_dir = config.get("site_dir")
-        self._site_url = config.get("site_url", "./")
+        self._site_url = config.get("site_url")
         self._meta_descriptions = self._read_meta_descriptions(pages)
 
     def _read_meta_descriptions(self, pages):
