@@ -1,11 +1,11 @@
 Page,Meta description
-https://example.com/index.html,For full documentation visit mkdocs.org.
-https://example.com/escape-html-entities.html,"First paragraph with HTML entities: ""quotes"", 'single quotes', <greater and less than>, &ampersand&."
-https://example.com/filename%20with%20spaces.html,First paragraph.
-https://example.com/first-paragraph-no-heading.html,First paragraph.
-https://example.com/first-paragraph-no-intro.html,Value of site_description on mkdocs.yml
-https://example.com/first-paragraph-no-paragraph.html,Value of site_description on mkdocs.yml
-https://example.com/first-paragraph.html,First paragraph.
-https://example.com/front-matter-description.html,Value of meta description on front-matter-description.md
-https://example.com/subdirectory/index.html,For full documentation visit mkdocs.org.
-https://example.com/subdirectory/first-paragraph.html,First paragraph.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/index.html,For full documentation visit mkdocs.org.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/escape-html-entities.html,"First paragraph with HTML entities: ""quotes"", 'single quotes', <greater and less than>, &ampersand&."
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/filename%20with%20spaces.html,First paragraph.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph-no-heading.html,First paragraph.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph-no-intro.html,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph-no-paragraph.html,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph.html,First paragraph.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/front-matter-description.html,Value of meta description on front-matter-description.md
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/subdirectory/index.html,For full documentation visit mkdocs.org.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/subdirectory/first-paragraph.html,First paragraph.
