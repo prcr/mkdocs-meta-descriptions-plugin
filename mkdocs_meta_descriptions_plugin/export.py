@@ -1,6 +1,7 @@
 import csv
 import os
 import re
+from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
@@ -13,6 +14,7 @@ class Export:
     def __init__(self, pages, config):
         self._body_pattern = re.compile("<body", flags=re.IGNORECASE)
         self._site_dir = config.get("site_dir")
+        self._site_url = config.get("site_url")
         self._meta_descriptions = self._read_meta_descriptions(pages)
 
     def _read_meta_descriptions(self, pages):
@@ -48,8 +50,10 @@ class Export:
             with open(output_file_path, "w") as csv_file:
                 csv_writer = csv.writer(csv_file)
                 csv_writer.writerow(["Page", "Meta description"])
-                for url, meta_description in self._meta_descriptions.items():
-                    csv_writer.writerow([url, meta_description])
+                for url_path, meta_description in self._meta_descriptions.items():
+                    csv_writer.writerow(
+                        [urljoin(self._site_url, url_path), meta_description]
+                    )
         else:
             logger.error(
                 PLUGIN_TAG + "Can't find meta descriptions to write to CSV file"
