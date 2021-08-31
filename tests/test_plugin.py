@@ -119,7 +119,7 @@ class TestExport:
     def test_export_csv_build(self, build):
         result, files, mkdocs_yml, _ = build
         if "export-csv" in mkdocs_yml:
-            expected = f"INFO    -  [meta-descriptions] Reading meta descriptions from {len(files)} HTML pages"
+            expected = f"INFO     -  [meta-descriptions] Reading meta descriptions from {len(files)} HTML pages"
             assert expected in result.output
 
     def test_export_csv_output(self, build):
