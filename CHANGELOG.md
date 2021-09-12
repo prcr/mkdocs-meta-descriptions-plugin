@@ -4,6 +4,12 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.2](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v1.0.1...v1.0.2) (2021-09-12)
+
+### Fixed
+
+-   Ignore first paragraphs if they belong to an [Admonition card](https://python-markdown.github.io/extensions/admonition/). Fixes [#95](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/95).
+
 ## [v1.0.1](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v1.0.0...v1.0.1) (2021-05-16)
 
 ### Fixed
