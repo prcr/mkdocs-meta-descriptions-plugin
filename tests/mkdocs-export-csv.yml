@@ -12,3 +12,4 @@ plugins:
 
 markdown_extensions:
     - meta
+    - admonition

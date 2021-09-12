@@ -1,5 +1,6 @@
 Page,Meta description
 ,For full documentation visit mkdocs.org.
+admonition-before-first-paragraph/,First paragraph.
 escape-html-entities/,"First paragraph with HTML entities: ""quotes"", 'single quotes', <greater and less than>, &ampersand&."
 filename%20with%20spaces/,First paragraph.
 first-paragraph-no-heading/,First paragraph.
