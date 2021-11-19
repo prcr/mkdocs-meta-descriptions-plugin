@@ -1,4 +1,4 @@
-name: Auto merge Dependabot dependency updates
+name: Dependabot auto merge
 
 on: pull_request
 
