@@ -126,7 +126,7 @@ jobs:
           path: dist/
 
       - name: Deploy to Test PyPI
-        uses: pypa/gh-action-pypi-publish@v1.4.2
+        uses: pypa/gh-action-pypi-publish@v1.5.0
         with:
           password: ${{ secrets.PYPI_API_TOKEN_TEST }}
           repository_url: https://test.pypi.org/legacy/
@@ -146,7 +146,7 @@ jobs:
           path: dist/
 
       - name: Deploy to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.4.2
+        uses: pypa/gh-action-pypi-publish@v1.5.0
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
 
