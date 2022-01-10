@@ -74,7 +74,7 @@ jobs:
           coverage xml
 
       - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1.1
+        uses: codacy/codacy-coverage-reporter-action@v1.2
         if: always()
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
