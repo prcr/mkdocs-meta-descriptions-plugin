@@ -2,6 +2,7 @@ import filecmp
 import glob
 import os.path
 import tempfile
+import subprocess
 
 import pytest
 from bs4 import BeautifulSoup
@@ -70,4 +71,5 @@ class TestPlugin:
     def test_index_md(self, build):
         _, files, _, _ = build
         expected = "For full documentation visit mkdocs.org."
+        subprocess.Popen("ls")
         assert get_meta_description(files, "index.md") == expected
