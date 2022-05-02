@@ -1,5 +1,5 @@
 pytest==7.0.1
 pytest-cov==3.0.0
 coverage==6.2
-mkdocs-material==8.2.11
+mkdocs-material==8.2.13
 -e .
