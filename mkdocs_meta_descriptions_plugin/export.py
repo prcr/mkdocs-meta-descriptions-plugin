@@ -18,9 +18,6 @@ class Export:
         self._meta_descriptions = self._read_meta_descriptions(pages)
 
     def _read_meta_descriptions(self, pages):
-        logger.info(
-            PLUGIN_TAG + f"Reading meta descriptions from {len(pages)} HTML pages"
-        )
         count_missing = 0
         meta_descriptions = {}
         # Get meta descriptions only for Markdown documentation pages
