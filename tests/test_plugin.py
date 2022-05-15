@@ -68,8 +68,8 @@ class TestPlugin:
             assert os.path.isfile(f.abs_dest_path)
 
     def test_build_summary(self, build):
-        result, files, mkdocs_yml, _ = build
-        expected = f"INFO     -  [meta-descriptions] 9 out of 11 pages have meta descriptions " \
+        result, files, _, _ = build
+        expected = f"INFO     -  [meta-descriptions] 9 out of {len(files)} pages have meta descriptions " \
                    f"(8 use the first paragraph)"
         assert expected in result.output
 
