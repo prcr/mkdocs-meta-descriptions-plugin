@@ -18,9 +18,9 @@ class MetaDescription(BasePlugin):
     def __init__(self):
         self._headings_pattern = re.compile("<h[2-6]", flags=re.IGNORECASE)
         self._pages = []
-        self._count_meta = 0  # Pages with meta descriptions defined on the page meta-data
+        self._count_meta = 0             # Pages with meta descriptions defined on the page meta-data
         self._count_first_paragraph = 0  # Pages with meta descriptions from the first paragraph
-        self._count_empty = 0  # Pages without meta descriptions
+        self._count_empty = 0            # Pages without meta descriptions
 
     def _get_first_paragraph_text(self, html):
         # Strip page subsections to improve performance
