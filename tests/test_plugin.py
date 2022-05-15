@@ -67,6 +67,12 @@ class TestPlugin:
         for f in files:
             assert os.path.isfile(f.abs_dest_path)
 
+    def test_build_summary(self, build):
+        result, files, _, _ = build
+        expected = f"INFO     -  [meta-descriptions] 9 out of {len(files)} pages have meta descriptions " \
+                   f"(8 use the first paragraph)"
+        assert expected in result.output
+
     def test_index_md(self, build):
         _, files, _, _ = build
         expected = "For full documentation visit mkdocs.org."
@@ -116,12 +122,6 @@ class TestPlugin:
 
 
 class TestExport:
-    def test_export_csv_build(self, build):
-        result, files, mkdocs_yml, _ = build
-        if "export-csv" in mkdocs_yml:
-            expected = f"INFO     -  [meta-descriptions] Reading meta descriptions from {len(files)} HTML pages"
-            assert expected in result.output
-
     def test_export_csv_output(self, build):
         _, files, mkdocs_yml, use_directory_urls = build
         if mkdocs_yml.endswith("mkdocs-export-csv.yml"):
