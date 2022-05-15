@@ -19,9 +19,9 @@ class MetaDescription(BasePlugin):
     def __init__(self):
         self._headings_pattern = re.compile("<h[2-6]", flags=re.IGNORECASE)
         self._pages = []
-        self._count_meta = 0             # Pages with meta descriptions defined on the page meta-data
+        self._count_meta = 0  # Pages with meta descriptions defined on the page meta-data
         self._count_first_paragraph = 0  # Pages with meta descriptions from the first paragraph
-        self._count_empty = 0            # Pages without meta descriptions
+        self._count_empty = 0  # Pages without meta descriptions
 
     def _get_first_paragraph_text(self, html):
         # Strip page subsections to improve performance
@@ -60,7 +60,14 @@ class MetaDescription(BasePlugin):
             f"{self._count_meta + self._count_first_paragraph} out of " \
             f"{self._count_meta + self._count_first_paragraph + self._count_empty} pages have meta descriptions " \
             f"({self._count_first_paragraph} use the first paragraph)"
-        logger.info(PLUGIN_TAG + summary)
+        if self.config.get("warnings", False) and self._count_empty > 0:
+            # Output warning message
+            logger.warn(PLUGIN_TAG + summary)
+        else:
+            # Output info message
+            logger.info(
+                PLUGIN_TAG + summary
+            )
         if self.config.get("export_csv", False):
             # Export meta descriptions to CSV file
             Export(self._pages, config).write_csv()
