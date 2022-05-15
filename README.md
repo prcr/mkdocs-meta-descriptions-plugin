@@ -61,7 +61,8 @@ Use the following options to configure the behavior of the plugin:
 ```yaml
 plugins:
   - meta-descriptions:
-      export_csv: false  
+      export_csv: false
+      warnings: false
 ```
 
 ### `export_csv`
@@ -69,6 +70,14 @@ plugins:
 If `true`, the plugin exports the meta descriptions of all Markdown pages to the CSV file `<site_dir>/meta-descriptions.csv`. The default is `false`.
 
 This is useful to review and keep track of all the meta descriptions in your pages, especially if you're maintaining a big site.
+
+### `warnings`
+
+If `true`, the plugin outputs warnings for each page that doesn't have a meta description or that has a meta description longer than the [recommended maximum length](https://en.wikipedia.org/wiki/Meta_element#The_description_attribute) of 160 characters. The default is `false`.
+
+This is useful to help ensure that all pages have a relevant meta description that won't be cut short by search engines.
+
+Alternatively, run `mkdocs` with the `--verbose` flag to see the same information as debug information.
 
 ## See also
 
