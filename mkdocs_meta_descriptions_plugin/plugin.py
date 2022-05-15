@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
+from .common import PLUGIN_TAG, logger
 from .export import Export
 
 
@@ -17,6 +18,9 @@ class MetaDescription(BasePlugin):
     def __init__(self):
         self._headings_pattern = re.compile("<h[2-6]", flags=re.IGNORECASE)
         self._pages = []
+        self._count_meta = 0  # Pages with meta descriptions defined on the page meta-data
+        self._count_first_paragraph = 0  # Pages with meta descriptions from the first paragraph
+        self._count_empty = 0  # Pages without meta descriptions
 
     def _get_first_paragraph_text(self, html):
         # Strip page subsections to improve performance
@@ -33,12 +37,15 @@ class MetaDescription(BasePlugin):
     def on_page_content(self, html, page, config, files):
         if page.meta.get("description", None):
             # Skip pages that already have an explicit meta description
-            pass
+            self._count_meta += 1
         else:
             # Create meta description based on the first paragraph of the page
             first_paragraph_text = self._get_first_paragraph_text(html)
             if len(first_paragraph_text) > 0:
                 page.meta["description"] = first_paragraph_text
+                self._count_first_paragraph += 1
+            else:
+                self._count_empty += 1
         return html
 
     def on_post_page(self, output, page, config):
@@ -48,6 +55,11 @@ class MetaDescription(BasePlugin):
         return output
 
     def on_post_build(self, config):
+        summary = \
+            f"{self._count_meta + self._count_first_paragraph} out of " \
+            f"{self._count_meta + self._count_first_paragraph + self._count_empty} pages have meta descriptions " \
+            f"({self._count_first_paragraph} use the first paragraph)"
+        logger.info(PLUGIN_TAG + summary)
         if self.config.get("export_csv", False):
             # Export meta descriptions to CSV file
             Export(self._pages, config).write_csv()
