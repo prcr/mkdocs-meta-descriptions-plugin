@@ -13,6 +13,7 @@ class MetaDescription(BasePlugin):
 
     config_scheme = (
         ("export_csv", config_options.Type(bool, default=False)),
+        ("verbose", config_options.Type(bool, default=False)),
     )
 
     def __init__(self):

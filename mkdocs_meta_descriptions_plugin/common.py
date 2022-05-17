@@ -1,22 +1,26 @@
 import logging
 
+from mkdocs.plugins import BasePlugin
+
 
 class Logger:
-    _tag = "[meta-descriptions] "
-    _logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
-
     Debug, Info, Warning, Error = range(0, 4)
+
+    def __init__(self, verbose):
+        self._tag = "[meta-descriptions] "
+        self._logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
+        self._verbose = verbose
 
     def write(self, log_level, message):
         message = self._tag + message
         if log_level == self.Debug:
             self._logger.debug(message)
-        if log_level == self.Info:
+        elif log_level == self.Info:
             self._logger.info(message)
-        if log_level == self.Warning:
+        elif log_level == self.Warning:
             self._logger.warning(message)
-        if log_level == self.Error:
+        elif log_level == self.Error:
             self._logger.error(message)
 
 
-logger = Logger()
+logger = Logger(BasePlugin.config.get("verbose", False))
