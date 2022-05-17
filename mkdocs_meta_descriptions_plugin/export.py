@@ -49,4 +49,4 @@ class Export:
                         [urljoin(self._site_url, url_path), meta_description]
                     )
         else:
-            logger.write(logger.Error, "Can't find meta descriptions to write to CSV file")
+            logger.write(logger.Warning, "Can't find meta descriptions to write to CSV file")
