@@ -67,12 +67,6 @@ class TestPlugin:
         for f in files:
             assert os.path.isfile(f.abs_dest_path)
 
-    def test_build_summary(self, build):
-        result, files, _, _ = build
-        expected = f"INFO     -  [meta-descriptions] 9 out of {len(files)} pages have meta descriptions " \
-                   f"(8 use the first paragraph)"
-        assert expected in result.output
-
     def test_index_md(self, build):
         _, files, _, _ = build
         expected = "For full documentation visit mkdocs.org."
@@ -119,6 +113,13 @@ class TestPlugin:
             "<greater and less than>, &ampersand&."
         )
         assert get_meta_description(files, "escape-html-entities.md") == expected
+
+    def test_build_summary(self, build):
+        result, files, mkdocs_yml, _ = build
+        if "verbose" in mkdocs_yml:
+            expected = f"INFO     -  [meta-descriptions] 9 out of {len(files)} pages have meta descriptions " \
+                       f"(8 use the first paragraph)"
+            assert expected in result.output
 
 
 class TestExport:

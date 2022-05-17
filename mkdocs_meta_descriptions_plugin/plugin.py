@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
-from .common import PLUGIN_TAG, logger
+from .common import logger
 from .export import Export
 
 
@@ -13,6 +13,7 @@ class MetaDescription(BasePlugin):
 
     config_scheme = (
         ("export_csv", config_options.Type(bool, default=False)),
+        ("verbose", config_options.Type(bool, default=False)),
     )
 
     def __init__(self):
@@ -33,6 +34,10 @@ class MetaDescription(BasePlugin):
         else:
             # Didn't find the first paragraph
             return ""
+
+    def on_config(self, config):
+        logger.initialize(self.config)
+        return config
 
     def on_page_content(self, html, page, config, files):
         if page.meta.get("description", None):
@@ -59,7 +64,7 @@ class MetaDescription(BasePlugin):
             f"{self._count_meta + self._count_first_paragraph} out of " \
             f"{self._count_meta + self._count_first_paragraph + self._count_empty} pages have meta descriptions " \
             f"({self._count_first_paragraph} use the first paragraph)"
-        logger.info(PLUGIN_TAG + summary)
+        logger.write(logger.Info, summary)
         if self.config.get("export_csv", False):
             # Export meta descriptions to CSV file
             Export(self._pages, config).write_csv()
