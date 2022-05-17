@@ -35,6 +35,10 @@ class MetaDescription(BasePlugin):
             # Didn't find the first paragraph
             return ""
 
+    def on_config(self, config):
+        logger.initialize(self.config)
+        return config
+
     def on_page_content(self, html, page, config, files):
         if page.meta.get("description", None):
             # Skip pages that already have an explicit meta description

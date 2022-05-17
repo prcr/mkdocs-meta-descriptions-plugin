@@ -1,17 +1,23 @@
+import logging
 from logging import getLogger
-
-from mkdocs.plugins import BasePlugin
 
 
 class Logger:
+    _initialized = False
+    _tag = "[meta-descriptions] "
+    _logger = getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
+    _verbose = False
+
     Debug, Info, Warning, Error = range(0, 4)
 
-    def __init__(self, verbose):
-        self._tag = "[meta-descriptions] "
-        self._logger = getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
-        self._verbose = verbose
+    def initialize(self, config):
+        self._verbose = config.get("verbose", False)
+        self._initialized = True
 
     def write(self, log_level, message):
+        if not self._initialized:
+            self._logger.warning(self._tag + "'Logger' object not initialized yet, using default configurations")
+
         message = self._tag + message
         if log_level == self.Debug:
             self._logger.debug(message)
@@ -27,4 +33,4 @@ class Logger:
             self._logger.error(message)
 
 
-logger = Logger(BasePlugin.config.get("verbose", False))
+logger = Logger()
