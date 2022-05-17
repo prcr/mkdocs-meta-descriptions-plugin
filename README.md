@@ -61,7 +61,8 @@ Use the following options to configure the behavior of the plugin:
 ```yaml
 plugins:
   - meta-descriptions:
-      export_csv: false  
+      export_csv: false
+      verbose: false
 ```
 
 ### `export_csv`
@@ -69,6 +70,12 @@ plugins:
 If `true`, the plugin exports the meta descriptions of all Markdown pages to the CSV file `<site_dir>/meta-descriptions.csv`. The default is `false`.
 
 This is useful to review and keep track of all the meta descriptions in your pages, especially if you're maintaining a big site.
+
+### `verbose`
+
+If `true`, the plugin outputs a summary of how many pages have meta descriptions and other information while building your site. The default is `false`.
+
+Alternatively, you can see the same information by running MkDocs with the `--verbose` flag.
 
 ## See also
 
