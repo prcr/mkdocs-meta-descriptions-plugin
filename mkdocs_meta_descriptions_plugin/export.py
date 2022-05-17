@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
-from .common import PLUGIN_TAG, logger
+from .common import logger
 
 
 class Export:
@@ -34,16 +34,13 @@ class Export:
                     count_missing += 1
                     meta_descriptions[page.url] = ""
         if count_missing > 0:
-            logger.warning(
-                PLUGIN_TAG
-                + f"Couldn't find meta descriptions for {count_missing} HTML pages"
-            )
+            logger.write(logger.Warning, f"Couldn't find meta descriptions for {count_missing} HTML pages")
         return meta_descriptions
 
     def write_csv(self, output_file="meta-descriptions.csv"):
         output_file_path = os.path.join(self._site_dir, output_file)
         if self._meta_descriptions:
-            logger.info(PLUGIN_TAG + f"Writing {output_file_path}")
+            logger.write(logger.Info, f"Writing {output_file_path}")
             with open(output_file_path, "w") as csv_file:
                 csv_writer = csv.writer(csv_file)
                 csv_writer.writerow(["Page", "Meta description"])
@@ -52,6 +49,4 @@ class Export:
                         [urljoin(self._site_url, url_path), meta_description]
                     )
         else:
-            logger.error(
-                PLUGIN_TAG + "Can't find meta descriptions to write to CSV file"
-            )
+            logger.write(logger.Error, "Can't find meta descriptions to write to CSV file")
