@@ -16,7 +16,11 @@ class Logger:
         if log_level == self.Debug:
             self._logger.debug(message)
         elif log_level == self.Info:
-            self._logger.info(message)
+            # Print info messages only if the verbose option is True
+            if self._verbose:
+                self._logger.info(message)
+            else:
+                self._logger.debug(message)
         elif log_level == self.Warning:
             self._logger.warning(message)
         elif log_level == self.Error:
