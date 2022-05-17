@@ -1,4 +1,4 @@
-import logging
+from logging import getLogger
 
 from mkdocs.plugins import BasePlugin
 
@@ -8,7 +8,7 @@ class Logger:
 
     def __init__(self, verbose):
         self._tag = "[meta-descriptions] "
-        self._logger = logging.getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
+        self._logger = getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
         self._verbose = verbose
 
     def write(self, log_level, message):
