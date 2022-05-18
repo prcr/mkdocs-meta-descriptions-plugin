@@ -12,7 +12,7 @@ Use this MkDocs plugin to automatically generate meta descriptions for your page
 For each page, the plugin:
 
 1.  Checks that the page doesn't already have a meta description.
-    
+
     The plugin **doesn't change** any meta descriptions defined explicitly on the [page meta-data](https://www.mkdocs.org/user-guide/writing-your-docs/#meta-data).
 
 2.  Tries to find the first paragraph above any `<h2>` to `<h6>` headings.

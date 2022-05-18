@@ -41,7 +41,7 @@ First stable version.
 
 ### Fixed
 
--   Escape special characters `& < " ' >` in text used in meta descriptions. Fixes [#35](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/35). 
+-   Escape special characters `& < " ' >` in text used in meta descriptions. Fixes [#35](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/35).
 
 ## [v0.0.2](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v0.0.1...v0.0.2) (2021-04-06)
 
