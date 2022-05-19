@@ -16,7 +16,7 @@ For each page, the plugin:
     The plugin **doesn't change** any meta descriptions defined explicitly on the [page meta-data](https://www.mkdocs.org/user-guide/writing-your-docs/#meta-data).
 
 2.  Tries to find the first paragraph above any `<h2>` to `<h6>` headings.
-   
+
     The plugin only searches for the first paragraph until the start of the first section to ensure that the content is from the "introductory" part of the page.
 
 3.  Sets the meta description of the page to the plain text context of the paragraph, stripped of HTML tags.
@@ -34,7 +34,7 @@ To set up and use the plugin:
     ```bash
     pip install mkdocs-meta-descriptions-plugin
     ```
-    
+
     Depending on your project, you may also need to add the plugin as a dependency on your `requirements.txt` file.
 
 2.  Activate the plugin in your `mkdocs.yml`:
@@ -46,7 +46,7 @@ To set up and use the plugin:
     ```
 
     > **Note:** If you have no `plugins` entry in your `mkdocs.yml` file yet, you'll likely also want to add the `search` plugin. MkDocs enables it by default if there is no `plugins` entry set, but now you have to enable it explicitly.
-    
+
 3.  Activate the [Meta-Data extension](https://python-markdown.github.io/extensions/meta_data/) in your `mkdocs.yml`:
 
     ```yaml
