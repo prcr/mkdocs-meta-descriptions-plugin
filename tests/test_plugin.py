@@ -116,10 +116,9 @@ class TestPlugin:
 
     def test_build_summary(self, build):
         result, files, mkdocs_yml, _ = build
-        if "verbose" in mkdocs_yml:
-            expected = f"INFO     -  [meta-descriptions] 9 out of {len(files)} pages have meta descriptions " \
-                       f"(8 use the first paragraph)"
-            assert expected in result.output
+        if "quiet" in mkdocs_yml:
+            not_expected = f"INFO     -  [meta-descriptions]"
+            assert not_expected not in result.output
 
 
 class TestExport:
