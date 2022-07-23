@@ -1,6 +1,6 @@
 # Change log
 
-All notable changes to this project are documented in this file.
+This file lists all updates to the [mkdocs-meta-descriptions plugin](https://github.com/prcr/mkdocs-meta-descriptions-plugin).
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
