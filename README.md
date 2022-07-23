@@ -62,7 +62,7 @@ Use the following options to configure the behavior of the plugin:
 plugins:
   - meta-descriptions:
       export_csv: false
-      verbose: false
+      quiet: false
 ```
 
 ### `export_csv`
@@ -71,11 +71,11 @@ If `true`, the plugin exports the meta descriptions of all Markdown pages to the
 
 This is useful to review and keep track of all the meta descriptions in your pages, especially if you're maintaining a big site.
 
-### `verbose`
+### `quiet`
 
-If `true`, the plugin outputs a summary of how many pages have meta descriptions and other information while building your site. The default is `false`.
+If `true`, the plugin logs messages of level `INFO` using the level `DEBUG` instead. The default is `false`.
 
-Alternatively, you can see the same information by running MkDocs with the `--verbose` flag.
+Use this option to have a cleaner MkDocs console output. You can still see all logs by running MkDocs with the `--verbose` flag.
 
 ## See also
 

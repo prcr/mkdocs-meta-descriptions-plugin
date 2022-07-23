@@ -8,7 +8,7 @@ plugins:
     - search
     - meta-descriptions:
         export_csv: true
-        verbose: true
+        quiet: true
 
 markdown_extensions:
     - meta
