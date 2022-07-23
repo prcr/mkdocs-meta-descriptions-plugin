@@ -43,14 +43,17 @@ class MetaDescription(BasePlugin):
         if page.meta.get("description", None):
             # Skip pages that already have an explicit meta description
             self._count_meta += 1
+            logger.write(logger.Debug, f"Adding meta description from front matter: {page.file.src_path}")
         else:
             # Create meta description based on the first paragraph of the page
             first_paragraph_text = self._get_first_paragraph_text(html)
             if len(first_paragraph_text) > 0:
                 page.meta["description"] = first_paragraph_text
                 self._count_first_paragraph += 1
+                logger.write(logger.Debug, f"Adding meta description from first paragraph: {page.file.src_path}")
             else:
                 self._count_empty += 1
+                logger.write(logger.Debug, f"Couldn't add meta description: {page.file.src_path}")
         return html
 
     def on_post_page(self, output, page, config):
@@ -60,11 +63,10 @@ class MetaDescription(BasePlugin):
         return output
 
     def on_post_build(self, config):
-        summary = \
-            f"{self._count_meta + self._count_first_paragraph} out of " \
-            f"{self._count_meta + self._count_first_paragraph + self._count_empty} pages have meta descriptions " \
-            f"({self._count_first_paragraph} use the first paragraph)"
-        logger.write(logger.Info, summary)
+        count_meta = self._count_meta + self._count_first_paragraph
+        count_total = count_meta + self._count_empty
+        logger.write(logger.Info, f"Added meta descriptions to {count_meta} of {count_total} pages, "
+                                  f"{self._count_first_paragraph} using the first paragraph")
         if self.config.get("export_csv", False):
             # Export meta descriptions to CSV file
             Export(self._pages, config).write_csv()
