@@ -60,11 +60,10 @@ class MetaDescription(BasePlugin):
         return output
 
     def on_post_build(self, config):
-        summary = \
-            f"{self._count_meta + self._count_first_paragraph} out of " \
-            f"{self._count_meta + self._count_first_paragraph + self._count_empty} pages have meta descriptions " \
-            f"({self._count_first_paragraph} use the first paragraph)"
-        logger.write(logger.Info, summary)
+        count_meta = self._count_meta + self._count_first_paragraph
+        count_total = count_meta + self._count_empty
+        logger.write(logger.Info, f"Added meta descriptions to {count_meta} of {count_total} pages, "
+                                  f"{self._count_first_paragraph} using the first paragraph")
         if self.config.get("export_csv", False):
             # Export meta descriptions to CSV file
             Export(self._pages, config).write_csv()
