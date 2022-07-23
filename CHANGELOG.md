@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Added
 
 -   Option `quiet` to stop info messages from being displayed on the console when running MkDocs.
--   New debug messages to log which meta description the plugin used on each page, available by running MkDocs with the `--verbose` flag. 
+-   New debug messages to log which meta description the plugin used on each page, available by running MkDocs with the `--verbose` flag.
 
 ### Changed
 
