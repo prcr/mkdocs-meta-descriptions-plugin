@@ -10,7 +10,7 @@ class Logger:
     Debug, Info, Warning, Error = range(0, 4)
 
     def initialize(self, config):
-        self._quiet = config.get("quiet", False)
+        self._quiet = config.get("quiet")
         self._initialized = True
 
     def write(self, log_level, message):

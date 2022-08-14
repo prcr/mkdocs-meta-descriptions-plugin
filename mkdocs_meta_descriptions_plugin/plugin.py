@@ -60,7 +60,7 @@ class MetaDescription(BasePlugin):
         return html
 
     def on_post_page(self, output, page, config):
-        if self.config.get("export_csv", False):
+        if self.config.get("export_csv"):
             # Collect pages to export meta descriptions to CSV file
             self._pages.append(page)
         return output
@@ -70,6 +70,6 @@ class MetaDescription(BasePlugin):
         count_total = count_meta + self._count_empty
         logger.write(logger.Info, f"Added meta descriptions to {count_meta} of {count_total} pages, "
                                   f"{self._count_first_paragraph} using the first paragraph")
-        if self.config.get("export_csv", False):
+        if self.config.get("export_csv"):
             # Export meta descriptions to CSV file
             Export(self._pages, config).write_csv()
