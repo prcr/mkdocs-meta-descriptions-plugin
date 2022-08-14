@@ -14,6 +14,9 @@ class MetaDescription(BasePlugin):
     config_scheme = (
         ("export_csv", config_options.Type(bool, default=False)),
         ("quiet", config_options.Type(bool, default=False)),
+        ("check_length", config_options.Type(bool, default=False)),
+        ("min_length", config_options.Type(int, default=50)),
+        ("max_length", config_options.Type(int, default=160)),
     )
 
     def __init__(self):
