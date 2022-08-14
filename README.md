@@ -63,6 +63,9 @@ plugins:
   - meta-descriptions:
       export_csv: false
       quiet: false
+      check_length: false
+      min_length: 50
+      max_length: 160
 ```
 
 ### `export_csv`
@@ -76,6 +79,24 @@ This is useful to review and keep track of all the meta descriptions in your pag
 If `true`, the plugin logs messages of level `INFO` using the level `DEBUG` instead. The default is `false`.
 
 Use this option to have a cleaner MkDocs console output. You can still see all logs by running MkDocs with the `--verbose` flag.
+
+### `check_length`
+
+If `true`, the plugin outputs a warning for each meta description shorter than `min_length` or longer than `max_length`. The default is `false`.
+
+The default values for `min_length` and `max_length` are based on [general recommendations](https://moz.com/learn/seo/meta-description).
+
+### `min_length`
+
+Minimum number of characters that each meta description should have. The default is 50 characters.
+
+Make sure that you set `check_length: true` for this option to have an effect.
+
+### `max_length`
+
+Maximum number of characters that each meta description should have. The default is 160 characters.
+
+Make sure that you set `check_length: true` for this option to have an effect.
 
 ## See also
 
