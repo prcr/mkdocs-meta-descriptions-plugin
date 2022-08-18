@@ -63,7 +63,7 @@ plugins:
   - meta-descriptions:
       export_csv: false
       quiet: false
-      check_length: false
+      enable_checks: false
       min_length: 50
       max_length: 160
 ```
@@ -78,25 +78,25 @@ This is useful to review and keep track of all the meta descriptions in your pag
 
 If `true`, the plugin logs messages of level `INFO` using the level `DEBUG` instead. The default is `false`.
 
-Use this option to have a cleaner MkDocs console output. You can still see all logs by running MkDocs with the `--verbose` flag.
+Enable this option to have a cleaner MkDocs console output. You can still see all logs by running MkDocs with the `--verbose` flag.
 
-### `check_length`
+### `enable_checks`
 
-If `true`, the plugin outputs a warning for each meta description shorter than `min_length` or longer than `max_length`. The default is `false`.
+If `true`, the plugin outputs a warning for each page that will have an empty or default meta description, as well as for each meta description shorter than `min_length` or longer than `max_length`. The default is `false`.
 
-The default values for `min_length` and `max_length` are based on [general recommendations](https://moz.com/learn/seo/meta-description).
+Enable this option if you want to make sure that all pages have a meta description and that each meta description follows general SEO best practices.
 
 ### `min_length`
 
-Minimum number of characters that each meta description should have. The default is 50 characters.
+Minimum number of characters that each meta description should have. The default is 50 characters, based on [these general recommendations](https://moz.com/learn/seo/meta-description).
 
-Make sure that you set `check_length: true` for this option to have an effect.
+Make sure that you set `enable_checks: true` for this option to have an effect.
 
 ### `max_length`
 
-Maximum number of characters that each meta description should have. The default is 160 characters.
+Maximum number of characters that each meta description should have. The default is 160 characters, based on [these general recommendations](https://moz.com/learn/seo/meta-description).
 
-Make sure that you set `check_length: true` for this option to have an effect.
+Make sure that you set `enable_checks: true` for this option to have an effect.
 
 ## See also
 

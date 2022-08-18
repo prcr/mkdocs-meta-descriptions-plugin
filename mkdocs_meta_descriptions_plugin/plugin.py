@@ -7,7 +7,7 @@ from mkdocs.plugins import BasePlugin
 
 from .common import logger
 from .export import Export
-from .check_length import length_checker
+from .checker import checker
 
 
 class MetaDescription(BasePlugin):
@@ -15,7 +15,7 @@ class MetaDescription(BasePlugin):
     config_scheme = (
         ("export_csv", config_options.Type(bool, default=False)),
         ("quiet", config_options.Type(bool, default=False)),
-        ("check_length", config_options.Type(bool, default=False)),
+        ("enable_checks", config_options.Type(bool, default=False)),
         ("min_length", config_options.Type(int, default=50)),
         ("max_length", config_options.Type(int, default=160)),
     )
@@ -41,7 +41,7 @@ class MetaDescription(BasePlugin):
 
     def on_config(self, config):
         logger.initialize(self.config)
-        length_checker.initialize(self.config)
+        checker.initialize(self.config)
         return config
 
     def on_page_content(self, html, page, config, files):
@@ -65,7 +65,7 @@ class MetaDescription(BasePlugin):
         if self.config.get("export_csv"):
             # Collect pages to export meta descriptions to CSV file
             self._pages.append(page)
-        length_checker.check(page)
+        checker.check(page)
         return output
 
     def on_post_build(self, config):
