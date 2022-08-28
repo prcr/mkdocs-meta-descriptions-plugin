@@ -47,13 +47,6 @@ To set up and use the plugin:
 
     > **Note:** If you have no `plugins` entry in your `mkdocs.yml` file yet, you'll likely also want to add the `search` plugin. MkDocs enables it by default if there is no `plugins` entry set, but now you have to enable it explicitly.
 
-3.  Activate the [Meta-Data extension](https://python-markdown.github.io/extensions/meta_data/) in your `mkdocs.yml`:
-
-    ```yaml
-    markdown_extensions:
-      - meta
-    ```
-
 ## Configuring the plugin
 
 Use the following options to configure the behavior of the plugin:
