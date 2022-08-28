@@ -11,5 +11,4 @@ plugins:
         quiet: true
 
 markdown_extensions:
-    - meta
     - admonition
