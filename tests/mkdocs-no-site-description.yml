@@ -8,5 +8,4 @@ plugins:
     - meta-descriptions
 
 markdown_extensions:
-    - meta
     - admonition
