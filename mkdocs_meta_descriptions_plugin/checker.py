@@ -10,7 +10,7 @@ class Checker:
     _min_length = 50
     _max_length = 160
     _warning_syntax_length = Template(
-        "The meta description for $page is $character_count characters $comparative than $limit")
+        "Meta description $character_count character$plural $comparative than $limit: $page")
 
     def _check_length(self, page):
         length = len(page.meta.get("description", ""))
@@ -20,16 +20,18 @@ class Checker:
             return
         elif length < self._min_length:
             diff = self._min_length - length
-            logger.write(logger.Warning, self._warning_syntax_length.substitute(page=page.file.src_path,
-                                                                                character_count=diff,
+            logger.write(logger.Warning, self._warning_syntax_length.substitute(character_count=diff,
+                                                                                plural="s"[:diff != 1],
                                                                                 comparative="shorter",
-                                                                                limit=self._min_length))
+                                                                                limit=self._min_length,
+                                                                                page=page.file.src_path))
         elif length > self._max_length:
             diff = length - self._max_length
-            logger.write(logger.Warning, self._warning_syntax_length.substitute(page=page.file.src_path,
-                                                                                character_count=diff,
+            logger.write(logger.Warning, self._warning_syntax_length.substitute(character_count=diff,
+                                                                                plural="s"[:diff != 1],
                                                                                 comparative="longer",
-                                                                                limit=self._max_length))
+                                                                                limit=self._max_length,
+                                                                                page=page.file.src_path))
 
     def initialize(self, config):
         self._check = config.get("enable_checks")
