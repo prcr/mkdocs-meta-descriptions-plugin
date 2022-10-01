@@ -7,6 +7,7 @@ from mkdocs.plugins import BasePlugin
 
 from .common import logger
 from .export import Export
+from .checker import checker
 
 
 class MetaDescription(BasePlugin):
@@ -14,6 +15,9 @@ class MetaDescription(BasePlugin):
     config_scheme = (
         ("export_csv", config_options.Type(bool, default=False)),
         ("quiet", config_options.Type(bool, default=False)),
+        ("enable_checks", config_options.Type(bool, default=False)),
+        ("min_length", config_options.Type(int, default=50)),
+        ("max_length", config_options.Type(int, default=160)),
     )
 
     def __init__(self):
@@ -37,6 +41,7 @@ class MetaDescription(BasePlugin):
 
     def on_config(self, config):
         logger.initialize(self.config)
+        checker.initialize(self.config)
         return config
 
     def on_page_content(self, html, page, config, files):
@@ -57,9 +62,10 @@ class MetaDescription(BasePlugin):
         return html
 
     def on_post_page(self, output, page, config):
-        if self.config.get("export_csv", False):
+        if self.config.get("export_csv"):
             # Collect pages to export meta descriptions to CSV file
             self._pages.append(page)
+        checker.check(page)
         return output
 
     def on_post_build(self, config):
@@ -67,6 +73,6 @@ class MetaDescription(BasePlugin):
         count_total = count_meta + self._count_empty
         logger.write(logger.Info, f"Added meta descriptions to {count_meta} of {count_total} pages, "
                                   f"{self._count_first_paragraph} using the first paragraph")
-        if self.config.get("export_csv", False):
+        if self.config.get("export_csv"):
             # Export meta descriptions to CSV file
             Export(self._pages, config).write_csv()

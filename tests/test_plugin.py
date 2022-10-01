@@ -39,7 +39,7 @@ def use_directory_urls(request):
 def build(request, use_directory_urls):
     mkdocs_yml = request.param
     with tempfile.TemporaryDirectory() as tempdir:
-        result = CliRunner().invoke(
+        result = CliRunner(mix_stderr=False).invoke(
             build_command,
             ["--config-file", mkdocs_yml, "--site-dir", tempdir, use_directory_urls[0]],
         )
@@ -161,3 +161,26 @@ class TestExport:
                     "tests/meta-descriptions-no-site-url-no-directory-urls.csv",
                     csv_path,
                 )
+
+
+class TestChecker:
+    def test_checker_long(self, build):
+        result, _, mkdocs_yml, _ = build
+        if "enable-checks" in mkdocs_yml:
+            expected = f"WARNING  -  \x1b[0m[meta-descriptions] Meta description 10 characters longer than 35: " \
+                       f"warning-long.md"
+            assert expected in result.stderr
+
+    def test_checker_short(self, build):
+        result, _, mkdocs_yml, _ = build
+        if "enable-checks" in mkdocs_yml:
+            expected = f"WARNING  -  \x1b[0m[meta-descriptions] Meta description 2 characters shorter than 25: " \
+                       f"warning-short.md"
+            assert expected in result.stderr
+
+    def test_checker_not_found(self, build):
+        result, _, mkdocs_yml, _ = build
+        if "enable-checks" in mkdocs_yml:
+            expected = f"WARNING  -  \x1b[0m[meta-descriptions] Meta description not found: " \
+                       f"warning-not-found.md"
+            assert expected in result.stderr

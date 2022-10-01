@@ -1,0 +1,14 @@
+site_name: Test mkdocs-meta-descriptions-plugin
+
+theme:
+    name: material
+
+plugins:
+    - search
+    - meta-descriptions:
+        enable_checks: true
+        min_length: 25
+        max_length: 35
+
+markdown_extensions:
+    - admonition

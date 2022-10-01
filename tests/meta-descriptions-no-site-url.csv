@@ -8,5 +8,8 @@ first-paragraph-no-intro/,Value of site_description on mkdocs.yml
 first-paragraph-no-paragraph/,Value of site_description on mkdocs.yml
 first-paragraph/,First paragraph.
 front-matter-description/,Value of meta description on front-matter-description.md
+warning-long/,"Long meta description, long meta description."
+warning-not-found/,Value of site_description on mkdocs.yml
+warning-short/,Short meta description.
 subdirectory/,For full documentation visit mkdocs.org.
 subdirectory/first-paragraph/,First paragraph.

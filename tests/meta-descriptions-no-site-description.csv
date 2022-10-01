@@ -8,5 +8,8 @@ https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph-no-intro/
 https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph-no-paragraph/,
 https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph/,First paragraph.
 https://prcr.github.io/mkdocs-meta-descriptions-plugin/front-matter-description/,Value of meta description on front-matter-description.md
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/warning-long/,"Long meta description, long meta description."
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/warning-not-found/,
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/warning-short/,Short meta description.
 https://prcr.github.io/mkdocs-meta-descriptions-plugin/subdirectory/,For full documentation visit mkdocs.org.
 https://prcr.github.io/mkdocs-meta-descriptions-plugin/subdirectory/first-paragraph/,First paragraph.

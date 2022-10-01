@@ -4,6 +4,12 @@ This file lists all updates to the [mkdocs-meta-descriptions plugin](https://git
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.1.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v2.0.0...v2.1.0) (2022-10-01)
+
+### Added
+
+-   New option [`enable_checks`](https://github.com/prcr/mkdocs-meta-descriptions-plugin#enable_checks) to validate if all pages have meta descriptions and if each meta description has the recommended length.
+
 ## [v2.0.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v1.0.2...v2.0.0) (2022-07-23)
 
 ### Removed
@@ -13,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Added
 
 -   Added support for Python 3.10.
--   Option `quiet` to stop info messages from being displayed on the console when running MkDocs.
+-   New option [`quiet`](https://github.com/prcr/mkdocs-meta-descriptions-plugin#quiet) to stop info messages from being displayed on the console when running MkDocs.
 -   New debug messages to log which meta description the plugin used on each page, available by running MkDocs with the `--verbose` flag.
 
 ### Changed
