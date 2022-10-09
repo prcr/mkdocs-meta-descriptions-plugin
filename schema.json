@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "meta-descriptions": {
+            "type": "object",
+            "properties": {
+                "export_csv": {
+                    "type": "boolean"
+                },
+                "quiet": {
+                    "type": "boolean"
+                },
+                "enable_checks": {
+                    "type": "boolean"
+                },
+                "min_length": {
+                    "type": "integer"
+                },
+                "max_length": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": true,
+            "required": [
+                "export_csv",
+                "quiet",
+                "enable_checks",
+                "min_length",
+                "max_length"
+            ]
+        }
+    },
+    "additionalProperties": true,
+    "required": [
+        "meta-descriptions"
+    ]
+}
+
