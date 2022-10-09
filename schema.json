@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "Generate meta descriptions from the first paragraphs in your MkDocs pages",
+  "oneOf": [
+    {
+      "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#readme",
+      "enum": [
+        "meta-descriptions"
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "meta-descriptions": {
+          "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#configuring-the-plugin",
+          "type": "object",
+          "properties": {
+            "export_csv": {
+              "title": "Export CSV",
+              "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#export_csv",
+              "type": "boolean",
+              "default": "false"
+            },
+            "quiet": {
+              "title": "Quiet output",
+              "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#quiet",
+              "type": "boolean",
+              "default": "false"
+            },
+            "enable_checks": {
+              "title": "Enable checks",
+              "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#enable_checks",
+              "type": "boolean",
+              "default": "false"
+            },
+            "min_length": {
+              "title": "Minimum length",
+              "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#min_length",
+              "type": "integer",
+              "default": 50,
+              "minimum": 0
+            },
+            "max_length": {
+              "title": "Maximum length",
+              "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#max_length",
+              "type": "integer",
+              "default": 160,
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}
