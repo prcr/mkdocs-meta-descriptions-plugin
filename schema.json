@@ -1,39 +1,53 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "object",
-    "properties": {
-        "meta-descriptions": {
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "title": "Generate meta descriptions from the first paragraphs in your MkDocs pages",
+    "oneOf": [
+        {
+            "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#readme",
+            "enum": [
+              "meta-descriptions"
+            ]
+        },
+        {
             "type": "object",
             "properties": {
-                "export_csv": {
-                    "type": "boolean"
-                },
-                "quiet": {
-                    "type": "boolean"
-                },
-                "enable_checks": {
-                    "type": "boolean"
-                },
-                "min_length": {
-                    "type": "integer"
-                },
-                "max_length": {
-                    "type": "integer"
+                "meta-descriptions": {
+                    "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#readme",
+                    "type": "object",
+                    "properties": {
+                        "export_csv": {
+                            "title": "Export CSV",
+                            "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#export_csv",
+                            "type": "boolean"
+                        },
+                        "quiet": {
+                            "title": "Quiet output",
+                            "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#quiet",
+                            "type": "boolean"
+                        },
+                        "enable_checks": {
+                            "title": "Enable checks",
+                            "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#enable_checks",
+                            "type": "boolean"
+                        },
+                        "min_length": {
+                            "title": "Minimum length",
+                            "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#min_length",
+                            "type": "integer",
+                            "minimum": 0
+                        },
+                        "max_length": {
+                            "title": "Maximum length",
+                            "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#max_length",
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    "additionalProperties": false
                 }
             },
-            "additionalProperties": true,
-            "required": [
-                "export_csv",
-                "quiet",
-                "enable_checks",
-                "min_length",
-                "max_length"
-            ]
+            "additionalProperties": false
         }
-    },
-    "additionalProperties": true,
-    "required": [
-        "meta-descriptions"
     ]
 }
 
