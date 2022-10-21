@@ -41,7 +41,7 @@ def build(request, use_directory_urls):
     with tempfile.TemporaryDirectory() as tempdir:
         result = CliRunner(mix_stderr=False).invoke(
             build_command,
-            ["--config-file", mkdocs_yml, "--site-dir", tempdir, use_directory_urls[0]],
+            ["--config-file", mkdocs_yml, "--site-dir", tempdir, use_directory_urls[0], "--verbose"],
         )
         files = Files(
             [

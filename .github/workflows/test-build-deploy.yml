@@ -174,4 +174,4 @@ jobs:
 
       - name: Deploy GitHub Pages
         run:
-          mkdocs gh-deploy --config-file "${GITHUB_WORKSPACE}/tests/mkdocs.yml"
+          mkdocs gh-deploy --config-file "${GITHUB_WORKSPACE}/tests/mkdocs.yml" --verbose
