@@ -71,7 +71,7 @@ jobs:
         run:
           coverage combine
 
-      - name: Generate XML report of coverage results
+      - name: Generate XML coverage report
         run:
           coverage xml
 
@@ -81,6 +81,13 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage.xml
+
+      - name: Upload XML coverage report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage.xml
+          path: coverage.xml
+          retention-days: 3
 
   build:
     name: Build
