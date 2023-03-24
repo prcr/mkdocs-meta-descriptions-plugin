@@ -1,4 +1,5 @@
 import re
+import textwrap as tr
 from html import escape
 
 from bs4 import BeautifulSoup
@@ -53,7 +54,9 @@ class MetaDescription(BasePlugin):
             # Create meta description based on the first paragraph of the page
             first_paragraph_text = self._get_first_paragraph_text(html)
             if len(first_paragraph_text) > 0:
-                page.meta["description"] = first_paragraph_text
+                html = re.sub(r".+</h\d>", '', html)
+                page.meta["description"] = tr.shorten(first_paragraph_text, self.config.get("max_length")).replace(
+                    '[...]', '').strip()
                 self._count_first_paragraph += 1
                 logger.write(logger.Debug, f"Adding meta description from first paragraph: {page.file.src_path}")
             else:
