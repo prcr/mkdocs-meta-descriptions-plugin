@@ -54,7 +54,6 @@ class MetaDescription(BasePlugin):
             # Create meta description based on the first paragraph of the page
             first_paragraph_text = self._get_first_paragraph_text(html)
             if len(first_paragraph_text) > 0:
-                html = re.sub(r".+</h\d>", '', html)
                 page.meta["description"] = tr.shorten(first_paragraph_text, self.config.get("max_length")).replace(
                     '[...]', '').strip()
                 self._count_first_paragraph += 1
