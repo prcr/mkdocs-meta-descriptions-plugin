@@ -117,7 +117,7 @@ class TestPlugin:
     def test_build_summary(self, build):
         result, _, mkdocs_yml, _ = build
         if "quiet" in mkdocs_yml:
-            not_expected = f"INFO     -  [meta-descriptions]"
+            not_expected = "INFO     -  [meta-descriptions]"
             assert not_expected not in result.output
 
 
@@ -167,20 +167,20 @@ class TestChecker:
     def test_checker_long(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = f"WARNING  -  \x1b[0m[meta-descriptions] Meta description 10 characters longer than 35: " \
-                       f"warning-long.md"
+            expected = "WARNING  -  \x1b[0m[meta-descriptions] Meta description 10 characters longer than 35: " \
+                       "warning-long.md"
             assert expected in result.stderr
 
     def test_checker_short(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = f"WARNING  -  \x1b[0m[meta-descriptions] Meta description 2 characters shorter than 25: " \
-                       f"warning-short.md"
+            expected = "WARNING  -  \x1b[0m[meta-descriptions] Meta description 2 characters shorter than 25: " \
+                       "warning-short.md"
             assert expected in result.stderr
 
     def test_checker_not_found(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = f"WARNING  -  \x1b[0m[meta-descriptions] Meta description not found: " \
-                       f"warning-not-found.md"
+            expected = "WARNING  -  \x1b[0m[meta-descriptions] Meta description not found: " \
+                       "warning-not-found.md"
             assert expected in result.stderr
