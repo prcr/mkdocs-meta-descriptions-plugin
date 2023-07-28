@@ -9,6 +9,8 @@ from click.testing import CliRunner
 from mkdocs.__main__ import build_command
 from mkdocs.structure.files import File, Files
 
+from mkdocs_meta_descriptions_plugin.common import MKDOCS_VERSION, MKDOCS_1_5_0
+
 mkdocs_yml_list = glob.glob("tests/*.yml")
 markdown_files_list = [
     file[len("tests/docs/") :]
@@ -117,7 +119,10 @@ class TestPlugin:
     def test_build_summary(self, build):
         result, _, mkdocs_yml, _ = build
         if "quiet" in mkdocs_yml:
-            not_expected = "INFO     -  [meta-descriptions]"
+            if MKDOCS_VERSION < MKDOCS_1_5_0:
+                not_expected = "INFO     -  [meta-descriptions]"
+            else:
+                not_expected = "INFO    -  mkdocs_meta_descriptions_plugin"
             assert not_expected not in result.output
 
 
@@ -167,20 +172,32 @@ class TestChecker:
     def test_checker_long(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = "WARNING -  \x1b[0m[meta-descriptions] Meta description 10 characters longer than 35: " \
-                       "warning-long.md"
+            if MKDOCS_VERSION < MKDOCS_1_5_0:
+                expected = "WARNING  -  \x1b[0m[meta-descriptions] " \
+                           "Meta description 10 characters longer than 35: warning-long.md"
+            else:
+                expected = "WARNING -  \x1b[0mmkdocs_meta_descriptions_plugin: " \
+                           "Meta description 10 characters longer than 35: warning-long.md"
             assert expected in result.stderr
 
     def test_checker_short(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = "WARNING -  \x1b[0m[meta-descriptions] Meta description 2 characters shorter than 25: " \
-                       "warning-short.md"
+            if MKDOCS_VERSION < MKDOCS_1_5_0:
+                expected = "WARNING  -  \x1b[0m[meta-descriptions] " \
+                           "Meta description 2 characters shorter than 25: warning-short.md"
+            else:
+                expected = "WARNING -  \x1b[0mmkdocs_meta_descriptions_plugin: " \
+                           "Meta description 2 characters shorter than 25: warning-short.md"
             assert expected in result.stderr
 
     def test_checker_not_found(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = "WARNING -  \x1b[0m[meta-descriptions] Meta description not found: " \
-                       "warning-not-found.md"
+            if MKDOCS_VERSION < MKDOCS_1_5_0:
+                expected = "WARNING  -  \x1b[0m[meta-descriptions] " \
+                           "Meta description not found: warning-not-found.md"
+            else:
+                expected = "WARNING -  \x1b[0mmkdocs_meta_descriptions_plugin: " \
+                           "Meta description not found: warning-not-found.md"
             assert expected in result.stderr
