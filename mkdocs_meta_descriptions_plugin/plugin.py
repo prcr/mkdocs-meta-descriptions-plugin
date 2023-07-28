@@ -19,7 +19,7 @@ class MetaDescription(BasePlugin):
         ("enable_checks", config_options.Type(bool, default=False)),
         ("min_length", config_options.Type(int, default=50)),
         ("max_length", config_options.Type(int, default=160)),
-        ("trim", config_options.Type(bool, default=False))
+        ("trim", config_options.Type(bool, default=False)),
     )
 
     def __init__(self):
