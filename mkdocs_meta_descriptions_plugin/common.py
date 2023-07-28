@@ -1,10 +1,23 @@
-from logging import getLogger
+import mkdocs
+from packaging import version
+
+MKDOCS_VERSION = version.parse(mkdocs.__version__)
+MKDOCS_1_5_0 = version.parse("1.5.0")
+
+if MKDOCS_VERSION < MKDOCS_1_5_0:
+    from logging import getLogger
+else:
+    from mkdocs.plugins import get_plugin_logger
 
 
 class Logger:
     _initialized = False
-    _tag = "[meta-descriptions] "
-    _logger = getLogger("mkdocs.mkdocs_meta_descriptions_plugin")
+    if MKDOCS_VERSION < MKDOCS_1_5_0:
+        _tag = "[meta-descriptions] "
+        _logger = getLogger("mkdocs.plugins." + __name__)
+    else:
+        _tag = ""
+        _logger = get_plugin_logger(__name__)
     _quiet = False
 
     Debug, Info, Warning, Error = range(0, 4)
