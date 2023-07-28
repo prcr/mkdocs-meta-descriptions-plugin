@@ -167,20 +167,20 @@ class TestChecker:
     def test_checker_long(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = "WARNING  -  \x1b[0m[meta-descriptions] Meta description 10 characters longer than 35: " \
+            expected = "WARNING -  \x1b[0m[meta-descriptions] Meta description 10 characters longer than 35: " \
                        "warning-long.md"
             assert expected in result.stderr
 
     def test_checker_short(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = "WARNING  -  \x1b[0m[meta-descriptions] Meta description 2 characters shorter than 25: " \
+            expected = "WARNING -  \x1b[0m[meta-descriptions] Meta description 2 characters shorter than 25: " \
                        "warning-short.md"
             assert expected in result.stderr
 
     def test_checker_not_found(self, build):
         result, _, mkdocs_yml, _ = build
         if "enable-checks" in mkdocs_yml:
-            expected = "WARNING  -  \x1b[0m[meta-descriptions] Meta description not found: " \
+            expected = "WARNING -  \x1b[0m[meta-descriptions] Meta description not found: " \
                        "warning-not-found.md"
             assert expected in result.stderr
