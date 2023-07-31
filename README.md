@@ -89,7 +89,13 @@ Make sure that you set `enable_checks: true` for this option to have an effect.
 
 Maximum number of characters that each meta description should have. The default is 160 characters, based on [these general recommendations](https://moz.com/learn/seo/meta-description).
 
-Make sure that you set `enable_checks: true` for this option to have an effect.
+Make sure that you set `enable_checks: true` or `trim: true` for this option to have an effect.
+
+### `trim`
+
+If `true`, the plugin trims meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters.
+
+Note that this option doesn't change any meta descriptions defined explicitly on the [page meta-data](https://www.mkdocs.org/user-guide/writing-your-docs/#meta-data).
 
 ## See also
 

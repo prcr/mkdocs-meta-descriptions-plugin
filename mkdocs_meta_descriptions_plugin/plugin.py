@@ -1,4 +1,5 @@
 import re
+from textwrap import shorten
 from html import escape
 
 from bs4 import BeautifulSoup
@@ -18,6 +19,7 @@ class MetaDescription(BasePlugin):
         ("enable_checks", config_options.Type(bool, default=False)),
         ("min_length", config_options.Type(int, default=50)),
         ("max_length", config_options.Type(int, default=160)),
+        ("trim", config_options.Type(bool, default=False)),
     )
 
     def __init__(self):
@@ -53,7 +55,11 @@ class MetaDescription(BasePlugin):
             # Create meta description based on the first paragraph of the page
             first_paragraph_text = self._get_first_paragraph_text(html)
             if len(first_paragraph_text) > 0:
-                page.meta["description"] = first_paragraph_text
+                if self.config.get("trim"):
+                    page.meta["description"] = shorten(first_paragraph_text, self.config.get("max_length"),
+                                                       placeholder="")
+                else:
+                    page.meta["description"] = first_paragraph_text
                 self._count_first_paragraph += 1
                 logger.write(logger.Debug, f"Adding meta description from first paragraph: {page.file.src_path}")
             else:
