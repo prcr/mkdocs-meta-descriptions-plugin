@@ -4,6 +4,16 @@ This file lists all updates to the [mkdocs-meta-descriptions plugin](https://git
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.3.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v2.2.0...v2.3.0) (2023-07-31)
+
+### Added
+
+-   New option [`trim`](https://github.com/prcr/mkdocs-meta-descriptions-plugin#trim) to trim meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters. Fixes [#259](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/259). Thanks to [@mur4d1n](https://github.com/mur4d1n) for the contribution! 🎉
+
+### Changed
+
+-   If you're using MkDocs>=1.5.0, the log messages produced by the plugin have the prefix `meta-descriptions:` instead of `[meta-descriptions]` since the plugin [now uses the built-in MkDocs logger](https://www.mkdocs.org/dev-guide/plugins/#logging-in-plugins) to help format log messages consistently across plugins.
+
 ## [v2.2.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v2.1.0...v2.2.0) (2022-12-15)
 
 ### Added
@@ -51,7 +61,7 @@ First stable version.
 
 ### Added
 
--   Support for [exporting meta descriptions](README.md#export_csv) as CSV file.
+-   Support for [exporting meta descriptions](https://github.com/prcr/mkdocs-meta-descriptions-plugin#export_csv) as CSV file.
 
 ## [v0.0.5](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v0.0.4...v0.0.5) (2021-05-10)
 
