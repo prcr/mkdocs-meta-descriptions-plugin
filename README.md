@@ -1,8 +1,8 @@
 # mkdocs-meta-descriptions-plugin
 
 [![CI/CD](https://github.com/prcr/mkdocs-meta-descriptions-plugin/actions/workflows/test-build-deploy.yml/badge.svg)](https://github.com/prcr/mkdocs-meta-descriptions-plugin/actions/workflows/test-build-deploy.yml)
-[![Codacy](https://app.codacy.com/project/badge/Grade/08bc759a053f475091318f53ea67bd05)](https://www.codacy.com/gh/prcr/mkdocs-meta-descriptions-plugin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=prcr/mkdocs-meta-descriptions-plugin&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/08bc759a053f475091318f53ea67bd05)](https://www.codacy.com/gh/prcr/mkdocs-meta-descriptions-plugin/dashboard?utm_source=github.com&utm_medium=referral&utm_content=prcr/mkdocs-meta-descriptions-plugin&utm_campaign=Badge_Coverage)
+[![Codacy](https://app.codacy.com/project/badge/Grade/08bc759a053f475091318f53ea67bd05)](https://app.codacy.com/gh/prcr/mkdocs-meta-descriptions-plugin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=prcr/mkdocs-meta-descriptions-plugin&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/08bc759a053f475091318f53ea67bd05)](https://app.codacy.com/gh/prcr/mkdocs-meta-descriptions-plugin/dashboard?utm_source=github.com&utm_medium=referral&utm_content=prcr/mkdocs-meta-descriptions-plugin&utm_campaign=Badge_Coverage)
 [![PyPI](https://img.shields.io/pypi/dm/mkdocs-meta-descriptions-plugin?label=PyPI)](https://pypi.org/project/mkdocs-meta-descriptions-plugin/)
 
 Use this MkDocs plugin to automatically generate meta descriptions for your pages using the first paragraph of each page. This is useful if you start each page with a short introduction or summary that can be reused as the meta description.
