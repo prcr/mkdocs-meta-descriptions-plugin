@@ -59,6 +59,7 @@ plugins:
       enable_checks: false
       min_length: 50
       max_length: 160
+      trim: false
 ```
 
 ### `export_csv`
