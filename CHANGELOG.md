@@ -61,7 +61,7 @@ First stable version.
 
 ### Added
 
--   Support for [exporting meta descriptions](README.md#export_csv) as CSV file.
+-   Support for [exporting meta descriptions](https://github.com/prcr/mkdocs-meta-descriptions-plugin#export_csv) as CSV file.
 
 ## [v0.0.5](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v0.0.4...v0.0.5) (2021-05-10)
 
