@@ -17,7 +17,7 @@ class Logger:
         _logger = getLogger("mkdocs.plugins." + __name__)
     else:
         _tag = ""
-        _logger = get_plugin_logger(__name__)
+        _logger = get_plugin_logger("meta-descriptions")
     _quiet = False
 
     Debug, Info, Warning, Error = range(0, 4)
