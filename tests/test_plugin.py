@@ -176,7 +176,7 @@ class TestChecker:
                 expected = "WARNING  -  \x1b[0m[meta-descriptions] " \
                            "Meta description 10 characters longer than 35: warning-long.md"
             else:
-                expected = "WARNING -  \x1b[0mmkdocs_meta_descriptions_plugin: " \
+                expected = "WARNING -  \x1b[0mmeta-descriptions: " \
                            "Meta description 10 characters longer than 35: warning-long.md"
             assert expected in result.stderr
 
@@ -187,7 +187,7 @@ class TestChecker:
                 expected = "WARNING  -  \x1b[0m[meta-descriptions] " \
                            "Meta description 2 characters shorter than 25: warning-short.md"
             else:
-                expected = "WARNING -  \x1b[0mmkdocs_meta_descriptions_plugin: " \
+                expected = "WARNING -  \x1b[0mmeta-descriptions: " \
                            "Meta description 2 characters shorter than 25: warning-short.md"
             assert expected in result.stderr
 
@@ -198,6 +198,6 @@ class TestChecker:
                 expected = "WARNING  -  \x1b[0m[meta-descriptions] " \
                            "Meta description not found: warning-not-found.md"
             else:
-                expected = "WARNING -  \x1b[0mmkdocs_meta_descriptions_plugin: " \
+                expected = "WARNING -  \x1b[0mmeta-descriptions: " \
                            "Meta description not found: warning-not-found.md"
             assert expected in result.stderr
