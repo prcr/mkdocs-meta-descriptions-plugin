@@ -47,6 +47,6 @@ class Export:
                     csv_writer.writerow(
                         [urljoin(self._site_url, url_path), meta_description]
                     )
-            logger.write(logger.Info, f"Exported meta descriptions to: {output_file_path}")
+            logger.write(logger.Info, f"Exported meta descriptions to {output_file_path}")
         else:
             logger.write(logger.Warning, "Can't find meta descriptions to write to CSV file")
