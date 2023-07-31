@@ -1,5 +1,5 @@
 import re
-import textwrap as tr
+from textwrap import shorten
 from html import escape
 
 from bs4 import BeautifulSoup
@@ -56,8 +56,8 @@ class MetaDescription(BasePlugin):
             first_paragraph_text = self._get_first_paragraph_text(html)
             if len(first_paragraph_text) > 0:
                 if self.config.get("trim"):
-                    page.meta["description"] = tr.shorten(first_paragraph_text, self.config.get("max_length")).replace(
-                    '[...]', '').strip()
+                    page.meta["description"] = shorten(first_paragraph_text, self.config.get("max_length"),
+                                                       placeholder="")
                 else:
                     page.meta["description"] = first_paragraph_text
                 self._count_first_paragraph += 1
