@@ -8,11 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Added
 
--   New option [`trim`](https://github.com/prcr/mkdocs-meta-descriptions-plugin#trim) to trim meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters. Fixes [#259](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/259). Thanks to [@mur4d1n](https://github.com/mur4d1n) for the contribution! 🎉 
+-   New option [`trim`](https://github.com/prcr/mkdocs-meta-descriptions-plugin#trim) to trim meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters. Fixes [#259](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/259). Thanks to [@mur4d1n](https://github.com/mur4d1n) for the contribution! 🎉
 
 ### Changed
 
--   If you're using MkDocs>=1.5.0, the log messages produced by the plugin have the prefix `meta-descriptions:` instead of `[meta-descriptions]` since the plugin [now uses the built-in MkDocs logger](https://www.mkdocs.org/dev-guide/plugins/#logging-in-plugins) to help format log messages consistently across plugins. 
+-   If you're using MkDocs>=1.5.0, the log messages produced by the plugin have the prefix `meta-descriptions:` instead of `[meta-descriptions]` since the plugin [now uses the built-in MkDocs logger](https://www.mkdocs.org/dev-guide/plugins/#logging-in-plugins) to help format log messages consistently across plugins.
 
 ## [v2.2.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v2.1.0...v2.2.0) (2022-12-15)
 
