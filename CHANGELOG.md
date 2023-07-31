@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Added
 
--   New option [`trim`](https://github.com/prcr/mkdocs-meta-descriptions-plugin#trim) to trim meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters. Thanks to [@mur4d1n](https://github.com/mur4d1n) [for the contribution](https://github.com/prcr/mkdocs-meta-descriptions-plugin/pull/260)! 🎉 
+-   New option [`trim`](https://github.com/prcr/mkdocs-meta-descriptions-plugin#trim) to trim meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters. Fixes [#259](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/259). Thanks to [@mur4d1n](https://github.com/mur4d1n) for the contribution! 🎉 
 
 ### Changed
 
