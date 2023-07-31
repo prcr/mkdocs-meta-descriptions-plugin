@@ -21,7 +21,7 @@ jobs:
           cache: "pip"
           cache-dependency-path: |
             requirements.txt
-            text/requirements.txt
+            tests/requirements.txt
 
       - name: Display Python version
         run:
