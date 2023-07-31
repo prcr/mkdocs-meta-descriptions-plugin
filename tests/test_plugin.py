@@ -167,6 +167,18 @@ class TestExport:
                     csv_path,
                 )
 
+    def test_export_csv_output_trim(self, build):
+        _, files, mkdocs_yml, use_directory_urls = build
+        if mkdocs_yml.endswith("mkdocs-export-csv-trim.yml"):
+            index_path = files.get_file_from_path("index.md").abs_dest_path
+            csv_path = index_path.replace("index.html", "meta-descriptions.csv")
+            if use_directory_urls:
+                assert filecmp.cmp("tests/meta-descriptions-trim.csv", csv_path)
+            else:
+                assert filecmp.cmp(
+                    "tests/meta-descriptions-trim-no-directory-urls.csv", csv_path
+                )
+
 
 class TestChecker:
     def test_checker_long(self, build):
@@ -201,3 +213,46 @@ class TestChecker:
                 expected = "WARNING -  \x1b[0mmkdocs_meta_descriptions_plugin: " \
                            "Meta description not found: warning-not-found.md"
             assert expected in result.stderr
+
+
+class TestTrim:
+    def test_trim_long_description(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "trim-default" in mkdocs_yml:
+            expected = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut "
+                        "labore et dolore magna aliqua. Neque convallis a cras semper auctor neque vitae tempus quam. "
+                        "Lacus viverra vitae congue eu consequat ac felis. Amet consectetur adipiscing elit duis "
+                        "tristique sollicitudin. Et egestas quis ipsum suspendisse. Donec adipiscing tristique risus "
+                        "nec feugiat in fermentum posuere urna. At auctor urna nunc id cursus metus. Risus nec feugiat "
+                        "in fermentum posuere urna. Habitant morbi tristique senectus et netus. Diam maecenas "
+                        "ultricies mi eget mauris pharetra et ultrices. A arcu cursus vitae congue. Maecenas sed enim "
+                        "ut sem viverra aliquet eget sit amet. Placerat vestibulum lectus mauris ultrices eros in.")
+            assert get_meta_description(files, "trim-long-description.md") == expected
+
+    def test_trim_long_first_paragraph(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "trim-default" in mkdocs_yml:
+            expected = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut "
+                        "labore et dolore magna aliqua. Neque convallis a cras semper auctor")
+            assert get_meta_description(files, "trim-long-first-paragraph.md") == expected
+
+    def test_trim_max_length_long_description(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "trim-max-length" in mkdocs_yml:
+            expected = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut "
+                        "labore et dolore magna aliqua. Neque convallis a cras semper auctor neque vitae tempus quam. "
+                        "Lacus viverra vitae congue eu consequat ac felis. Amet consectetur adipiscing elit duis "
+                        "tristique sollicitudin. Et egestas quis ipsum suspendisse. Donec adipiscing tristique risus "
+                        "nec feugiat in fermentum posuere urna. At auctor urna nunc id cursus metus. Risus nec feugiat "
+                        "in fermentum posuere urna. Habitant morbi tristique senectus et netus. Diam maecenas "
+                        "ultricies mi eget mauris pharetra et ultrices. A arcu cursus vitae congue. Maecenas sed enim "
+                        "ut sem viverra aliquet eget sit amet. Placerat vestibulum lectus mauris ultrices eros in.")
+            assert get_meta_description(files, "trim-long-description.md") == expected
+
+    def test_trim_max_length_long_first_paragraph(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "trim-max-length" in mkdocs_yml:
+            expected = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut "
+                        "labore et dolore magna aliqua. Neque convallis a cras semper auctor neque vitae tempus quam. "
+                        "Lacus viverra")
+            assert get_meta_description(files, "trim-long-first-paragraph.md") == expected
