@@ -4,6 +4,16 @@ This file lists all updates to the [mkdocs-meta-descriptions plugin](https://git
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.0.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v2.3.0...v3.0.0) (2023-12-06)
+
+### Removed
+
+-   Dropped support for Python 3.7 after [reaching EOL on 2023-06-27](https://devguide.python.org/versions/#unsupported-versions).
+
+### Added
+
+-   Added support for [Python 3.12](https://www.python.org/downloads/release/python-3120/).
+
 ## [v2.3.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v2.2.0...v2.3.0) (2023-07-31)
 
 ### Added
