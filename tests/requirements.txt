@@ -1,4 +1,4 @@
-pytest==7.4.2
+pytest==7.4.3
 pytest-cov==4.1.0
 coverage==7.2.7
 mkdocs-material==9.2.5
