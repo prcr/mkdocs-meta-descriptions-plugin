@@ -12,7 +12,7 @@ del file
 
 setup(
     name="mkdocs-meta-descriptions-plugin",
-    version="0.0.1",
+    #version="0.0.1",
     description="Generate meta descriptions from the first paragraphs in your MkDocs pages",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
