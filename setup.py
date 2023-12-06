@@ -12,7 +12,7 @@ del file
 
 setup(
     name="mkdocs-meta-descriptions-plugin",
-    version="0.0.1",
+    #version="0.0.1",
     description="Generate meta descriptions from the first paragraphs in your MkDocs pages",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
@@ -30,11 +30,11 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11"
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12"
     ],
     packages=["mkdocs_meta_descriptions_plugin"],
     entry_points={
