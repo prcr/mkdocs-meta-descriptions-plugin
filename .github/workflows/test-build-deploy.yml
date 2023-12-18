@@ -63,7 +63,7 @@ jobs:
           pip install -r tests/requirements.txt
 
       - name: Download binaries artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage
 
@@ -132,7 +132,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Download binaries artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
@@ -154,7 +154,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Download binaries artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
