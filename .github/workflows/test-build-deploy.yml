@@ -39,7 +39,7 @@ jobs:
           COVERAGE_FILE: .coverage.${{ matrix.python-version }}
 
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: .coverage.${{ matrix.python-version }}
@@ -83,7 +83,7 @@ jobs:
           coverage-reports: coverage.xml
 
       - name: Upload XML coverage report artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage.xml
           path: coverage.xml
@@ -113,7 +113,7 @@ jobs:
           python -m build --sdist --wheel --outdir dist/ .
 
       - name: Upload binaries artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')
         with:
           name: dist
