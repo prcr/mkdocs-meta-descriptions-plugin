@@ -11,38 +11,38 @@ else:
 
 
 class Logger:
-    _initialized = False
+    __initialized = False
     if MKDOCS_VERSION < MKDOCS_1_5_0:
-        _tag = "[meta-descriptions] "
-        _logger = getLogger("mkdocs.plugins." + __name__)
+        __tag = "[meta-descriptions] "
+        __logger = getLogger("mkdocs.plugins." + __name__)
     else:
-        _tag = ""
-        _logger = get_plugin_logger("meta-descriptions")
-    _quiet = False
+        __tag = ""
+        __logger = get_plugin_logger("meta-descriptions")
+    __quiet = False
 
     Debug, Info, Warning, Error = range(0, 4)
 
     def initialize(self, config):
-        self._quiet = config.get("quiet")
-        self._initialized = True
+        self.__quiet = config.get("quiet")
+        self.__initialized = True
 
     def write(self, log_level, message):
-        if not self._initialized:
-            self._logger.warning(self._tag + "'Logger' object not initialized yet, using default configurations")
+        if not self.__initialized:
+            self.__logger.warning(self.__tag + "'Logger' object not initialized yet, using default configurations")
 
-        message = self._tag + message
+        message = self.__tag + message
         if log_level == self.Debug:
-            self._logger.debug(message)
+            self.__logger.debug(message)
         elif log_level == self.Info:
             # If quiet is True, print INFO messages as DEBUG
-            if self._quiet:
-                self._logger.debug(message)
+            if self.__quiet:
+                self.__logger.debug(message)
             else:
-                self._logger.info(message)
+                self.__logger.info(message)
         elif log_level == self.Warning:
-            self._logger.warning(message)
+            self.__logger.warning(message)
         elif log_level == self.Error:
-            self._logger.error(message)
+            self.__logger.error(message)
 
 
 logger = Logger()

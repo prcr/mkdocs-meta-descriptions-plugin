@@ -12,12 +12,12 @@ class Export:
     """Read meta descriptions from the generated HTML and export them in a CSV file."""
 
     def __init__(self, pages, config):
-        self._body_pattern = re.compile("<body", flags=re.IGNORECASE)
-        self._site_dir = config.get("site_dir")
-        self._site_url = config.get("site_url")
-        self._meta_descriptions = self._read_meta_descriptions(pages)
+        self.__body_pattern = re.compile("<body", flags=re.IGNORECASE)
+        self.__site_dir = config.get("site_dir")
+        self.__site_url = config.get("site_url")
+        self.__meta_descriptions = self.__read_meta_descriptions(pages)
 
-    def _read_meta_descriptions(self, pages):
+    def __read_meta_descriptions(self, pages):
         count_missing = 0
         meta_descriptions = {}
         # Get meta descriptions only for Markdown documentation pages
@@ -25,7 +25,7 @@ class Export:
             with open(page.file.abs_dest_path) as page_file:
                 html = page_file.read()
                 # Strip page body to improve performance
-                html = re.split(self._body_pattern, html, maxsplit=1)[0]
+                html = re.split(self.__body_pattern, html, maxsplit=1)[0]
                 soup = BeautifulSoup(html, "html.parser")
                 meta_tag = soup.select_one('meta[name="description"]')
                 if meta_tag:
@@ -38,14 +38,14 @@ class Export:
         return meta_descriptions
 
     def write_csv(self, output_file="meta-descriptions.csv"):
-        output_file_path = os.path.join(self._site_dir, output_file)
-        if self._meta_descriptions:
+        output_file_path = os.path.join(self.__site_dir, output_file)
+        if self.__meta_descriptions:
             with open(output_file_path, "w") as csv_file:
                 csv_writer = csv.writer(csv_file)
                 csv_writer.writerow(["Page", "Meta description"])
-                for url_path, meta_description in self._meta_descriptions.items():
+                for url_path, meta_description in self.__meta_descriptions.items():
                     csv_writer.writerow(
-                        [urljoin(self._site_url, url_path), meta_description]
+                        [urljoin(self.__site_url, url_path), meta_description]
                     )
             logger.write(logger.Info, f"Exported meta descriptions to {output_file_path}")
         else:
