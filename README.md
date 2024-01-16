@@ -45,7 +45,7 @@ To set up and use the plugin:
       - meta-descriptions
     ```
 
-    > **Note:** If you have no `plugins` entry in your `mkdocs.yml` file yet, you'll likely also want to add the `search` plugin. MkDocs enables it by default if there is no `plugins` entry set, but now you have to enable it explicitly.
+    > **Note:** If you didn't have a `plugins` declaration in your `mkdocs.yml` file before this step, you'll likely also want to add the `search` plugin. This is because MkDocs enables the `search` plugin by default when there is no `plugins` declaration, but now you have to enable it explicitly.
 
 ## Configuring the plugin
 
