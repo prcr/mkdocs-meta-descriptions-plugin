@@ -139,7 +139,7 @@ jobs:
           path: dist/
 
       - name: Deploy to Test PyPI
-        uses: pypa/gh-action-pypi-publish@v1.9.0
+        uses: pypa/gh-action-pypi-publish@v1.10.1
         with:
           repository-url: https://test.pypi.org/legacy/
 
@@ -161,7 +161,7 @@ jobs:
           path: dist/
 
       - name: Deploy to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.9.0
+        uses: pypa/gh-action-pypi-publish@v1.10.1
 
   deploy-gh-pages:
     name: Deploy GitHub Pages
