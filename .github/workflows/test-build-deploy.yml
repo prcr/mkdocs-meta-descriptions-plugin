@@ -36,13 +36,13 @@ jobs:
           pytest --cov
         env:
           PYTHONPATH: .
-          COVERAGE_FILE: .coverage.${{ matrix.python-version }}
+          COVERAGE_FILE: coverage.${{ matrix.python-version }}
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.python-version }}
-          path: .coverage.${{ matrix.python-version }}
+          path: coverage.${{ matrix.python-version }}
           retention-days: 3
 
   upload-coverage:
@@ -70,7 +70,7 @@ jobs:
 
       - name: Combine coverage data
         run:
-          coverage combine
+          coverage combine coverage*
 
       - name: Generate XML coverage report
         run:
