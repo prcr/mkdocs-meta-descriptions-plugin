@@ -10,12 +10,12 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.2.0
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
@@ -36,13 +36,13 @@ jobs:
           pytest --cov
         env:
           PYTHONPATH: .
-          COVERAGE_FILE: .coverage.${{ matrix.python-version }}
+          COVERAGE_FILE: coverage.${{ matrix.python-version }}
 
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: coverage-${{ matrix.python-version }}
-          path: .coverage.${{ matrix.python-version }}
+          path: coverage.${{ matrix.python-version }}
           retention-days: 3
 
   upload-coverage:
@@ -50,10 +50,10 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.2.0
         with:
           python-version: "3.x"
 
@@ -63,28 +63,28 @@ jobs:
           pip install -r tests/requirements.txt
 
       - name: Download coverage artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.1.8
         with:
           pattern: coverage-*
           merge-multiple: true
 
       - name: Combine coverage data
         run:
-          coverage combine
+          coverage combine coverage*
 
       - name: Generate XML coverage report
         run:
           coverage xml
 
       - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1.3
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
         if: always()
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage.xml
 
       - name: Upload XML coverage report artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: coverage-xml
           path: coverage.xml
@@ -95,12 +95,12 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.2.0
         with:
           python-version: "3.x"
 
@@ -114,7 +114,7 @@ jobs:
           python -m build --sdist --wheel --outdir dist/ .
 
       - name: Upload binaries artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')
         with:
           name: dist
@@ -130,10 +130,10 @@ jobs:
       id-token: write
     if: startsWith(github.ref, 'refs/tags') || github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.7
 
       - name: Download binaries artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.1.8
         with:
           name: dist
           path: dist/
@@ -152,10 +152,10 @@ jobs:
       id-token: write
     if: startsWith(github.ref, 'refs/tags')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.7
 
       - name: Download binaries artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.1.8
         with:
           name: dist
           path: dist/
@@ -168,12 +168,12 @@ jobs:
     needs: deploy-test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.7
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.2.0
         with:
           python-version: "3.x"
 
