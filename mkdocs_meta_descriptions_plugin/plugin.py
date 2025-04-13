@@ -58,7 +58,7 @@ class MetaDescription(BasePlugin):
             if len(first_paragraph_text) == 0:
                 self.__count_empty += 1
                 logger.write(logger.Debug, f"Couldn't add meta description: {page.file.src_path}")
-            elif len(first_paragraph_text) < self.config.get("min_length") & self.config.get("fallback_if_short"):
+            elif (len(first_paragraph_text) < self.config.get("min_length")) & self.config.get("fallback_if_short"):
                 self.__count_empty += 1
                 logger.write(logger.Debug,
                              f"First paragraph is too short, reverting to site_description: {page.file.src_path}")
