@@ -277,3 +277,29 @@ class TestTrim:
                         "labore et dolore magna aliqua. Neque convallis a cras semper auctor neque vitae tempus quam. "
                         "Lacus viverra")
             assert get_meta_description(files, "trim-long-first-paragraph.md") == expected
+
+
+class TestFallbackIfShort:
+    def test_fallback_if_short_first_paragraph(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-default" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+            assert get_meta_description(files, "first-paragraph.md") == expected
+
+    def test_fallback_if_short_explicit_meta_description(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-default" in mkdocs_yml:
+            expected = "Short meta description."
+            assert get_meta_description(files, "warning-short.md") == expected
+
+    def test_fallback_if_short_min_length_first_paragraph(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-min-length" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+            assert get_meta_description(files, "first-paragraph.md") == expected
+
+    def test_fallback_if_short_min_length_explicit_meta_description(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-min-length" in mkdocs_yml:
+            expected = "Short meta description."
+            assert get_meta_description(files, "warning-short.md") == expected
