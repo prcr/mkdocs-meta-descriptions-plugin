@@ -70,18 +70,27 @@ class TestPlugin:
             assert os.path.isfile(f.abs_dest_path)
 
     def test_index_md(self, build):
-        _, files, _, _ = build
-        expected = "For full documentation visit mkdocs.org."
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-default" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+        else:
+            expected = "For full documentation visit mkdocs.org."
         assert get_meta_description(files, "index.md") == expected
 
     def test_first_paragraph(self, build):
-        _, files, _, _ = build
-        expected = "First paragraph."
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+        else:
+            expected = "First paragraph."
         assert get_meta_description(files, "first-paragraph.md") == expected
 
     def test_first_paragraph_no_heading(self, build):
-        _, files, _, _ = build
-        expected = "First paragraph."
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+        else:
+            expected = "First paragraph."
         assert get_meta_description(files, "first-paragraph-no-heading.md") == expected
 
     def test_first_paragraph_no_paragraph(self, build):

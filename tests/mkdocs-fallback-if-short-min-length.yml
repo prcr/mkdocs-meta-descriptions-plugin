@@ -1,0 +1,14 @@
+site_name: Test mkdocs-meta-descriptions-plugin
+site_description: "Value of site_description on mkdocs.yml"
+
+theme:
+    name: material
+
+plugins:
+    - search
+    - meta-descriptions:
+          min_length: 25
+          fallback_if_short: true
+
+markdown_extensions:
+    - admonition
