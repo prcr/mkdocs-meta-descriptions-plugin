@@ -54,7 +54,10 @@ class MetaDescription(BasePlugin):
         else:
             # Create meta description based on the first paragraph of the page
             first_paragraph_text = self.__get_first_paragraph_text(html)
-            if len(first_paragraph_text) > 0:
+            if len(first_paragraph_text) == 0:
+                self.__count_empty += 1
+                logger.write(logger.Debug, f"Couldn't add meta description: {page.file.src_path}")
+            else:
                 if self.config.get("trim"):
                     page.meta["description"] = shorten(first_paragraph_text, self.config.get("max_length"),
                                                        placeholder="")
@@ -62,9 +65,6 @@ class MetaDescription(BasePlugin):
                     page.meta["description"] = first_paragraph_text
                 self.__count_first_paragraph += 1
                 logger.write(logger.Debug, f"Adding meta description from first paragraph: {page.file.src_path}")
-            else:
-                self.__count_empty += 1
-                logger.write(logger.Debug, f"Couldn't add meta description: {page.file.src_path}")
         return html
 
     def on_post_page(self, output, page, config):
