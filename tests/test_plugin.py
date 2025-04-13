@@ -188,6 +188,18 @@ class TestExport:
                     "tests/meta-descriptions-trim-no-directory-urls.csv", csv_path
                 )
 
+    def test_export_csv_output_fallback_if_short(self, build):
+        _, files, mkdocs_yml, use_directory_urls = build
+        if mkdocs_yml.endswith("mkdocs-export-csv-fallback-if-short.yml"):
+            index_path = files.get_file_from_path("index.md").abs_dest_path
+            csv_path = index_path.replace("index.html", "meta-descriptions.csv")
+            if use_directory_urls:
+                assert filecmp.cmp("tests/meta-descriptions-fallback-if-short.csv", csv_path)
+            else:
+                assert filecmp.cmp(
+                    "tests/meta-descriptions-fallback-if-short-no-directory-urls.csv", csv_path
+                )
+
 
 class TestChecker:
     def test_checker_long(self, build):

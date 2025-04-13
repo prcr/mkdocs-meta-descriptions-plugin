@@ -1,0 +1,17 @@
+Page,Meta description
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/,For full documentation visit mkdocs.org.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/admonition-before-first-paragraph/,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/escape-html-entities/,"First paragraph with HTML entities: ""quotes"", 'single quotes', <greater and less than>, &ampersand&."
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/filename%20with%20spaces/,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph-no-heading/,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph-no-intro/,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph-no-paragraph/,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/first-paragraph/,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/front-matter-description/,Value of meta description on front-matter-description.md
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/trim-long-description/,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Neque convallis a cras semper auctor neque vitae tempus quam. Lacus viverra vitae congue eu consequat ac felis. Amet consectetur adipiscing elit duis tristique sollicitudin. Et egestas quis ipsum suspendisse. Donec adipiscing tristique risus nec feugiat in fermentum posuere urna. At auctor urna nunc id cursus metus. Risus nec feugiat in fermentum posuere urna. Habitant morbi tristique senectus et netus. Diam maecenas ultricies mi eget mauris pharetra et ultrices. A arcu cursus vitae congue. Maecenas sed enim ut sem viverra aliquet eget sit amet. Placerat vestibulum lectus mauris ultrices eros in."
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/trim-long-first-paragraph/,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Neque convallis a cras semper auctor neque vitae tempus quam. Lacus viverra vitae congue eu consequat ac felis. Amet consectetur adipiscing elit duis tristique sollicitudin. Et egestas quis ipsum suspendisse. Donec adipiscing tristique risus nec feugiat in fermentum posuere urna. At auctor urna nunc id cursus metus. Risus nec feugiat in fermentum posuere urna. Habitant morbi tristique senectus et netus. Diam maecenas ultricies mi eget mauris pharetra et ultrices. A arcu cursus vitae congue. Maecenas sed enim ut sem viverra aliquet eget sit amet. Placerat vestibulum lectus mauris ultrices eros in."
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/warning-long/,"Long meta description, long meta description."
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/warning-not-found/,Value of site_description on mkdocs.yml
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/warning-short/,Short meta description.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/subdirectory/,For full documentation visit mkdocs.org.
+https://prcr.github.io/mkdocs-meta-descriptions-plugin/subdirectory/first-paragraph/,Value of site_description on mkdocs.yml
