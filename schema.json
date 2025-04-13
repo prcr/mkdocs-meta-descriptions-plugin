@@ -52,6 +52,12 @@
               "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#trim",
               "type": "boolean",
               "default": "false"
+            },
+            "fallback_if_short": {
+              "title": "Fallback if too short",
+              "markdownDescription": "https://github.com/prcr/mkdocs-meta-descriptions-plugin#fallback_if_short",
+              "type": "boolean",
+              "default": "false"
             }
           },
           "additionalProperties": false
