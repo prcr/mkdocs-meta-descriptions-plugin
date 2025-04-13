@@ -60,6 +60,7 @@ plugins:
       min_length: 50
       max_length: 160
       trim: false
+      fallback_if_short: false
 ```
 
 ### `export_csv`
@@ -95,6 +96,12 @@ Make sure that you set `enable_checks: true` or `trim: true` for this option to 
 ### `trim`
 
 If `true`, the plugin trims meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters. The default is `false`.
+
+Note that this option doesn't change any meta descriptions defined explicitly on the [page meta-data](https://www.mkdocs.org/user-guide/writing-your-docs/#meta-data).
+
+### `fallback_if_short`
+
+If `true`, the plugin uses the value of `site_description` as the meta description when the first paragraph is shorter than `min_length`. The default is `false`.
 
 Note that this option doesn't change any meta descriptions defined explicitly on the [page meta-data](https://www.mkdocs.org/user-guide/writing-your-docs/#meta-data).
 
