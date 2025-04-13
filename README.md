@@ -94,7 +94,7 @@ Make sure that you set `enable_checks: true` or `trim: true` for this option to 
 
 ### `trim`
 
-If `true`, the plugin trims meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters.
+If `true`, the plugin trims meta descriptions coming from the first paragraph of the pages to include at most `max_length` characters. The default is `false`.
 
 Note that this option doesn't change any meta descriptions defined explicitly on the [page meta-data](https://www.mkdocs.org/user-guide/writing-your-docs/#meta-data).
 
