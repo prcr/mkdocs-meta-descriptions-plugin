@@ -20,6 +20,7 @@ class MetaDescription(BasePlugin):
         ("min_length", config_options.Type(int, default=50)),
         ("max_length", config_options.Type(int, default=160)),
         ("trim", config_options.Type(bool, default=False)),
+        ("fallback_if_short", config_options.Type(bool, default=False)),
     )
 
     def __init__(self):
@@ -57,6 +58,10 @@ class MetaDescription(BasePlugin):
             if len(first_paragraph_text) == 0:
                 self.__count_empty += 1
                 logger.write(logger.Debug, f"Couldn't add meta description: {page.file.src_path}")
+            elif len(first_paragraph_text) < self.config.get("min_length") & self.config.get("fallback_if_short"):
+                self.__count_empty += 1
+                logger.write(logger.Debug,
+                             f"First paragraph is too short, reverting to site_description: {page.file.src_path}")
             else:
                 if self.config.get("trim"):
                     page.meta["description"] = shorten(first_paragraph_text, self.config.get("max_length"),
