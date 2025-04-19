@@ -4,7 +4,7 @@ This file lists all updates to the [mkdocs-meta-descriptions plugin](https://git
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v4.1.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v4.0.0...v4.1.0) (TODO: Add date)
+## [v4.1.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v4.0.0...v4.1.0) (2025-04-19)
 
 ### Added
 
