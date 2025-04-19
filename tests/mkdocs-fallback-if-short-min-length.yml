@@ -1,6 +1,5 @@
 site_name: Test mkdocs-meta-descriptions-plugin
 site_description: "Value of site_description on mkdocs.yml"
-site_url: "https://prcr.github.io/mkdocs-meta-descriptions-plugin/"
 
 theme:
     name: material
@@ -8,9 +7,8 @@ theme:
 plugins:
     - search
     - meta-descriptions:
-        export_csv: true
-        max_length: 200
-        trim: true
+          min_length: 25
+          fallback_if_short: true
 
 markdown_extensions:
     - admonition

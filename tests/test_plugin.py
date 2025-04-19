@@ -70,18 +70,27 @@ class TestPlugin:
             assert os.path.isfile(f.abs_dest_path)
 
     def test_index_md(self, build):
-        _, files, _, _ = build
-        expected = "For full documentation visit mkdocs.org."
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-default" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+        else:
+            expected = "For full documentation visit mkdocs.org."
         assert get_meta_description(files, "index.md") == expected
 
     def test_first_paragraph(self, build):
-        _, files, _, _ = build
-        expected = "First paragraph."
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+        else:
+            expected = "First paragraph."
         assert get_meta_description(files, "first-paragraph.md") == expected
 
     def test_first_paragraph_no_heading(self, build):
-        _, files, _, _ = build
-        expected = "First paragraph."
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+        else:
+            expected = "First paragraph."
         assert get_meta_description(files, "first-paragraph-no-heading.md") == expected
 
     def test_first_paragraph_no_paragraph(self, build):
@@ -179,6 +188,18 @@ class TestExport:
                     "tests/meta-descriptions-trim-no-directory-urls.csv", csv_path
                 )
 
+    def test_export_csv_output_fallback_if_short(self, build):
+        _, files, mkdocs_yml, use_directory_urls = build
+        if mkdocs_yml.endswith("mkdocs-export-csv-fallback-if-short.yml"):
+            index_path = files.get_file_from_path("index.md").abs_dest_path
+            csv_path = index_path.replace("index.html", "meta-descriptions.csv")
+            if use_directory_urls:
+                assert filecmp.cmp("tests/meta-descriptions-fallback-if-short.csv", csv_path)
+            else:
+                assert filecmp.cmp(
+                    "tests/meta-descriptions-fallback-if-short-no-directory-urls.csv", csv_path
+                )
+
 
 class TestChecker:
     def test_checker_long(self, build):
@@ -256,3 +277,29 @@ class TestTrim:
                         "labore et dolore magna aliqua. Neque convallis a cras semper auctor neque vitae tempus quam. "
                         "Lacus viverra")
             assert get_meta_description(files, "trim-long-first-paragraph.md") == expected
+
+
+class TestFallbackIfShort:
+    def test_fallback_if_short_first_paragraph(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-default" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+            assert get_meta_description(files, "first-paragraph.md") == expected
+
+    def test_fallback_if_short_explicit_meta_description(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-default" in mkdocs_yml:
+            expected = "Short meta description."
+            assert get_meta_description(files, "warning-short.md") == expected
+
+    def test_fallback_if_short_min_length_first_paragraph(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-min-length" in mkdocs_yml:
+            expected = "Value of site_description on mkdocs.yml"
+            assert get_meta_description(files, "first-paragraph.md") == expected
+
+    def test_fallback_if_short_min_length_explicit_meta_description(self, build):
+        _, files, mkdocs_yml, _ = build
+        if "fallback-if-short-min-length" in mkdocs_yml:
+            expected = "Short meta description."
+            assert get_meta_description(files, "warning-short.md") == expected

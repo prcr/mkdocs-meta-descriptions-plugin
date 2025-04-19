@@ -9,8 +9,8 @@ plugins:
     - search
     - meta-descriptions:
         export_csv: true
-        max_length: 200
-        trim: true
+        min_length: 25
+        fallback_if_short: true
 
 markdown_extensions:
     - admonition

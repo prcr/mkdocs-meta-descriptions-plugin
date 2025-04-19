@@ -4,6 +4,12 @@ This file lists all updates to the [mkdocs-meta-descriptions plugin](https://git
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v4.1.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v4.0.0...v4.1.0) (2025-04-19)
+
+### Added
+
+-   New option [`fallback_if_short`](https://github.com/prcr/mkdocs-meta-descriptions-plugin#fallback_if_short) to allow using the default `site_description` when the description coming from the first paragraph is shorter than `min_length` characters. Fixes [#409](https://github.com/prcr/mkdocs-meta-descriptions-plugin/issues/409). Thanks to [@vu-truong-personal](https://github.com/vu-truong-personal) for the idea! 🎉
+
 ## [v4.0.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v3.0.0...v4.0.0) (2025-01-26)
 
 ### Added
