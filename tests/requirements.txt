@@ -1,6 +1,6 @@
 pytest==8.4.2
 pytest-cov==7.0.0
-coverage==7.10.6
+coverage==7.10.7
 click==8.1.8
 mkdocs-material==9.6.20
 -e .
