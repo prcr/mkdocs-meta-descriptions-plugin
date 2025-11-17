@@ -10,7 +10,7 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
         with:
           fetch-depth: 0
 
@@ -50,7 +50,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
 
       - name: Set up Python
         uses: actions/setup-python@v6.0.0
@@ -95,7 +95,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
         with:
           fetch-depth: 0
 
@@ -130,7 +130,7 @@ jobs:
       id-token: write
     if: startsWith(github.ref, 'refs/tags') || github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
 
       - name: Download binaries artifact
         uses: actions/download-artifact@v6.0.0
@@ -152,7 +152,7 @@ jobs:
       id-token: write
     if: startsWith(github.ref, 'refs/tags')
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
 
       - name: Download binaries artifact
         uses: actions/download-artifact@v6.0.0
@@ -168,7 +168,7 @@ jobs:
     needs: deploy-test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
         with:
           fetch-depth: 0
 
