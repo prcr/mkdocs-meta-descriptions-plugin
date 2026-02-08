@@ -76,12 +76,10 @@ jobs:
         run:
           coverage xml
 
-      - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1.3.0
-        if: always()
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: coverage.xml
+      - name: Upload coverage
+        run: coveralls
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload XML coverage report artifact
         uses: actions/upload-artifact@v6.0.0
