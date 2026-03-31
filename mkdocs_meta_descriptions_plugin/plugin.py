@@ -7,6 +7,7 @@ from mkdocs.config import base, config_options as c
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.pages import Page
 from mkdocs.structure.files import Files
+from mkdocs.config.defaults import MkDocsConfig
 
 from .common import logger
 from .export import Export
@@ -44,12 +45,12 @@ class MetaDescription(BasePlugin[MetaDescriptionConfig]):
             # Didn't find the first paragraph
             return ""
 
-    def on_config(self, config: base.MkDocsConfig):
+    def on_config(self, config: MkDocsConfig):
         logger.initialize(self.config)
         checker.initialize(self.config)
         return config
 
-    def on_page_content(self, html: str, page: Page, config: base.MkDocsConfig, files: Files):
+    def on_page_content(self, html: str, page: Page, config: MkDocsConfig, files: Files):
         if page.meta.get("description", None):
             # Skip pages that already have an explicit meta description
             self.__count_meta += 1
@@ -74,14 +75,14 @@ class MetaDescription(BasePlugin[MetaDescriptionConfig]):
                 logger.write(logger.Debug, f"Adding meta description from first paragraph: {page.file.src_uri}")
         return html
 
-    def on_post_page(self, output: str, page: Page, config: base.MkDocsConfig):
+    def on_post_page(self, output: str, page: Page, config: MkDocsConfig):
         if self.config.export_csv:
             # Collect pages to export meta descriptions to CSV file
             self.__pages.append(page)
         checker.check(page)
         return output
 
-    def on_post_build(self, config: base.MkDocsConfig):
+    def on_post_build(self, config: MkDocsConfig):
         count_meta = self.__count_meta + self.__count_first_paragraph
         count_total = count_meta + self.__count_empty
         logger.write(logger.Info, f"Added meta descriptions to {count_meta} of {count_total} pages, "
