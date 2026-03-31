@@ -53,17 +53,17 @@ class MetaDescription(BasePlugin[MetaDescriptionConfig]):
         if page.meta.get("description", None):
             # Skip pages that already have an explicit meta description
             self.__count_meta += 1
-            logger.write(logger.Debug, f"Adding meta description from front matter: {page.file.src_path}")
+            logger.write(logger.Debug, f"Adding meta description from front matter: {page.file.src_uri}")
         else:
             # Create meta description based on the first paragraph of the page
             first_paragraph_text = self.__get_first_paragraph_text(html)
             if len(first_paragraph_text) == 0:
                 self.__count_empty += 1
-                logger.write(logger.Debug, f"Couldn't add meta description: {page.file.src_path}")
+                logger.write(logger.Debug, f"Couldn't add meta description: {page.file.src_uri}")
             elif (len(first_paragraph_text) < self.config.min_length) & self.config.fallback_if_short:
                 self.__count_empty += 1
                 logger.write(logger.Debug,
-                             f"First paragraph is too short, reverting to site_description: {page.file.src_path}")
+                             f"First paragraph is too short, reverting to site_description: {page.file.src_uri}")
             else:
                 if self.config.trim:
                     page.meta["description"] = shorten(first_paragraph_text, self.config.max_length,
@@ -71,7 +71,7 @@ class MetaDescription(BasePlugin[MetaDescriptionConfig]):
                 else:
                     page.meta["description"] = first_paragraph_text
                 self.__count_first_paragraph += 1
-                logger.write(logger.Debug, f"Adding meta description from first paragraph: {page.file.src_path}")
+                logger.write(logger.Debug, f"Adding meta description from first paragraph: {page.file.src_uri}")
         return html
 
     def on_post_page(self, output: str, page: Page, config: base.MkDocsConfig):
