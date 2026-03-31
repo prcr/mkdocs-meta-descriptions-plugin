@@ -3,7 +3,7 @@ from textwrap import shorten
 from html import escape
 
 from bs4 import BeautifulSoup
-from mkdocs.config import config_options
+from mkdocs.config import base, config_options as c
 from mkdocs.plugins import BasePlugin
 
 from .common import logger
@@ -11,17 +11,17 @@ from .export import Export
 from .checker import checker
 
 
-class MetaDescription(BasePlugin):
+class MetaDescriptionConfig(base.Config):
+    export_csv = c.Type(bool, default=False)
+    quiet = c.Type(bool, default=False)
+    enable_checks = c.Type(bool, default=False)
+    min_length = c.Type(int, default=50)
+    max_length = c.Type(int, default=160)
+    trim = c.Type(bool, default=False)
+    fallback_if_short = c.Type(bool, default=False)
 
-    config_scheme = (
-        ("export_csv", config_options.Type(bool, default=False)),
-        ("quiet", config_options.Type(bool, default=False)),
-        ("enable_checks", config_options.Type(bool, default=False)),
-        ("min_length", config_options.Type(int, default=50)),
-        ("max_length", config_options.Type(int, default=160)),
-        ("trim", config_options.Type(bool, default=False)),
-        ("fallback_if_short", config_options.Type(bool, default=False)),
-    )
+
+class MetaDescription(BasePlugin[MetaDescriptionConfig]):
 
     def __init__(self):
         self.__headings_pattern = re.compile("<h[2-6]", flags=re.IGNORECASE)
@@ -58,13 +58,13 @@ class MetaDescription(BasePlugin):
             if len(first_paragraph_text) == 0:
                 self.__count_empty += 1
                 logger.write(logger.Debug, f"Couldn't add meta description: {page.file.src_path}")
-            elif (len(first_paragraph_text) < self.config.get("min_length")) & self.config.get("fallback_if_short"):
+            elif (len(first_paragraph_text) < self.config.min_length) & self.config.fallback_if_short:
                 self.__count_empty += 1
                 logger.write(logger.Debug,
                              f"First paragraph is too short, reverting to site_description: {page.file.src_path}")
             else:
-                if self.config.get("trim"):
-                    page.meta["description"] = shorten(first_paragraph_text, self.config.get("max_length"),
+                if self.config.trim:
+                    page.meta["description"] = shorten(first_paragraph_text, self.config.max_length,
                                                        placeholder="")
                 else:
                     page.meta["description"] = first_paragraph_text
@@ -73,7 +73,7 @@ class MetaDescription(BasePlugin):
         return html
 
     def on_post_page(self, output, page, config):
-        if self.config.get("export_csv"):
+        if self.config.export_csv:
             # Collect pages to export meta descriptions to CSV file
             self.__pages.append(page)
         checker.check(page)
@@ -84,6 +84,6 @@ class MetaDescription(BasePlugin):
         count_total = count_meta + self.__count_empty
         logger.write(logger.Info, f"Added meta descriptions to {count_meta} of {count_total} pages, "
                                   f"{self.__count_first_paragraph} using the first paragraph")
-        if self.config.get("export_csv"):
+        if self.config.export_csv:
             # Export meta descriptions to CSV file
             Export(self.__pages, config).write_csv()

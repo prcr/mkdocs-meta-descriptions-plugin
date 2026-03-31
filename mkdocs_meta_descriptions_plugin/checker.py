@@ -35,9 +35,9 @@ class Checker:
                                                                                    page=page.file.src_path))
 
     def initialize(self, config):
-        self.__check = config.get("enable_checks")
-        self.__min_length = config.get("min_length")
-        self.__max_length = config.get("max_length")
+        self.__check = config.enable_checks
+        self.__min_length = config.min_length
+        self.__max_length = config.max_length
         self.__initialized = True
 
     def check(self, page):
