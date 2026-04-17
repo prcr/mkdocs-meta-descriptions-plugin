@@ -13,8 +13,8 @@ class Export:
 
     def __init__(self, pages, config):
         self.__body_pattern = re.compile("<body", flags=re.IGNORECASE)
-        self.__site_dir = config.get("site_dir")
-        self.__site_url = config.get("site_url")
+        self.__site_dir = config.site_dir
+        self.__site_url = config.site_url
         self.__meta_descriptions = self.__read_meta_descriptions(pages)
 
     def __read_meta_descriptions(self, pages):
