@@ -17,7 +17,7 @@ class Checker:
     def __check_length(self, page):
         length = len(page.meta.get("description", ""))
         if length == 0:
-            logger.write(logger.Warning, self.__template_warning_missing.substitute(page=page.file.src_path))
+            logger.write(logger.Warning, self.__template_warning_missing.substitute(page=page.file.src_uri))
             return  # Skip length check
         elif length < self.__min_length:
             diff = self.__min_length - length
@@ -25,19 +25,19 @@ class Checker:
                                                                                    plural="s"[:diff != 1],
                                                                                    comparative="shorter",
                                                                                    limit=self.__min_length,
-                                                                                   page=page.file.src_path))
+                                                                                   page=page.file.src_uri))
         elif length > self.__max_length:
             diff = length - self.__max_length
             logger.write(logger.Warning, self.__template_warning_length.substitute(character_count=diff,
                                                                                    plural="s"[:diff != 1],
                                                                                    comparative="longer",
                                                                                    limit=self.__max_length,
-                                                                                   page=page.file.src_path))
+                                                                                   page=page.file.src_uri))
 
     def initialize(self, config):
-        self.__check = config.get("enable_checks")
-        self.__min_length = config.get("min_length")
-        self.__max_length = config.get("max_length")
+        self.__check = config.enable_checks
+        self.__min_length = config.min_length
+        self.__max_length = config.max_length
         self.__initialized = True
 
     def check(self, page):

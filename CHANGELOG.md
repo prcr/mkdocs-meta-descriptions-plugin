@@ -4,6 +4,13 @@ This file lists all updates to the [mkdocs-meta-descriptions plugin](https://git
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v5.0.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v4.1.0...v5.0.0) (2026-03-31)
+
+### Changed
+
+-   Modernized the codebase to benefit from MkDocs 1.4.0 features and improved APIs.
+-   Bumped minimum required MkDocs version to 1.4.0.
+
 ## [v4.1.0](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/v4.0.0...v4.1.0) (2025-04-19)
 
 ### Added
