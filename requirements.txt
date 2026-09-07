@@ -1,4 +1,4 @@
 mkdocs>=1.1
-pymdown-extensions>=7.0
+pymdown-extensions>=11.0.2
 beautifulsoup4>=4.15.0
 packaging
