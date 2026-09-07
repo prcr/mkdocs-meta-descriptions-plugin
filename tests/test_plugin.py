@@ -41,7 +41,7 @@ def use_directory_urls(request):
 def build(request, use_directory_urls):
     mkdocs_yml = request.param
     with tempfile.TemporaryDirectory() as tempdir:
-        result = CliRunner(mix_stderr=False).invoke(
+        result = CliRunner().invoke(
             build_command,
             ["--config-file", mkdocs_yml, "--site-dir", tempdir, use_directory_urls[0], "--verbose"],
         )
