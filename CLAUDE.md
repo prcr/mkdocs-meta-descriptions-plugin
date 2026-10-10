@@ -40,7 +40,7 @@ The package `mkdocs_meta_descriptions_plugin` has four small modules:
     -   `on_page_content` skips pages with a front matter description; otherwise it cuts the rendered HTML at the first `<h2>`–`<h6>`, takes the first `<p>` that isn't directly inside `div.admonition`, and stores its HTML-escaped text in `page.meta["description"]`, applying `trim` and `fallback_if_short`. Leaving the description unset is what makes the theme fall back to `site_description`.
     -   `on_post_page` runs the length checks and collects pages for the export.
     -   `on_post_build` logs the summary and writes the CSV.
--   `common.py`: the `logger` singleton. It branches on the MkDocs version: `get_plugin_logger` for MkDocs 1.5.0 or later, and a plain `logging` logger with a `[meta-descriptions] ` prefix before that. `quiet` downgrades `INFO` messages to `DEBUG`.
+-   `common.py`: the `logger` singleton. It branches on the installed MkDocs version, using the threshold constant defined at the top of the file: `get_plugin_logger` from that version onwards, and a plain `logging` logger with a `[meta-descriptions] ` prefix before it. `quiet` downgrades `INFO` messages to `DEBUG`.
 -   `checker.py`: the `checker` singleton that emits the `enable_checks` warnings for missing, too short, or too long descriptions.
 -   `export.py`: `Export` reads the meta descriptions back from the **generated HTML files** in `site_dir`, not from `page.meta`, so the CSV reflects what the theme actually rendered, including the `site_description` fallback.
 
@@ -77,13 +77,13 @@ Its structure is: what the plugin does for each page (a 3-step list that must st
 -   Tests that don't match the current config pass without asserting anything.
 -   Paths such as `tests/*.yml` and `tests/docs/` are relative to the working directory, so run pytest from the repo root.
 -   CSV export tests compare byte-for-byte against the fixtures `tests/meta-descriptions*.csv`, with a `-no-directory-urls` variant of each. Adding a page to `tests/docs/` requires updating all of these fixtures.
--   Checker tests assert on exact log lines in `result.stderr`, with separate expected strings for MkDocs before and after 1.5.0.
+-   Checker tests assert on exact log lines in `result.stderr`, with separate expected strings on each side of the MkDocs version threshold imported from `common.py`.
 -   `tests/mkdocs.yml` is also the config that CI uses to deploy the demo site to GitHub Pages.
 
 ## Release and CI
 
-`.github/workflows/test-build-deploy.yml` runs on every push: tests on Python 3.10 to 3.14, coverage to Coveralls, then a build. Pushes to `main` publish to Test PyPI and deploy GitHub Pages; pushing a tag also publishes to PyPI.
+`.github/workflows/test-build-deploy.yml` runs on every push: tests on every Python version in the workflow's `python-version` matrix, coverage to Coveralls, then a build. Pushes to `main` publish to Test PyPI and deploy GitHub Pages; pushing a tag also publishes to PyPI.
 
-The package version comes from git tags through `setuptools_scm`; there is no version string in the source. When supported Python versions change, update both the CI matrix and the classifiers in `setup.py`. Runtime dependencies live in the root `requirements.txt`, which `setup.py` reads as `install_requires`.
+The package version comes from git tags through `setuptools_scm`; there is no version string in the source. The supported Python versions are defined in two places that must stay in sync: the `python-version` matrix in the workflow and the classifiers in `setup.py`. Runtime dependencies live in the root `requirements.txt`, which `setup.py` reads as `install_requires`.
 
 Pushing a `vX.Y.Z` tag is the release and can't be undone on PyPI, so never create or push tags without being asked. `.claude/settings.json` pre-approves the routine git, gh, pytest, pip and mkdocs commands, but keeps force pushes and tag pushes behind a confirmation prompt.
