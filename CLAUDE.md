@@ -62,7 +62,7 @@ Its structure is: what the plugin does for each page (a 3-step list that must st
 
 ## CHANGELOG.md
 
-`CHANGELOG.md` follows Keep a Changelog and Semantic Versioning, and only lists changes that are visible to users of the plugin. Dependency bumps, CI and tooling changes are left out.
+`CHANGELOG.md` follows Keep a Changelog and Semantic Versioning, and only lists changes that are visible to users of the plugin. Dependency bumps, CI and tooling changes are left out. To write the entry for a new release, use the `update-changelog` skill in `.claude/skills/`.
 
 -   There is no "Unreleased" section. Each release has a heading in the form `## [vX.Y.Z](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/vPREVIOUS...vX.Y.Z) (YYYY-MM-DD)`, newest first, with `### Added`, `### Changed`, `### Removed` and `### Fixed` subsections as needed.
 -   The version in the heading must match the git tag that is pushed for the release, since the tag is what sets the package version.
