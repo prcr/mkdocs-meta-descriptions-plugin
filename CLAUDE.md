@@ -29,7 +29,7 @@ mkdocs build --config-file tests/mkdocs.yml --site-dir /tmp/site --verbose
 python -m build --sdist --wheel --outdir dist/ .
 ```
 
-There is no linter for Python code. Markdown files follow `.markdownlint.json` (4-space list indentation, `-` bullets, `1.` for every ordered item, 3 spaces after a bullet marker and 2 after an ordered marker).
+There is no linter for Python code. `.markdownlint.json` exists but nothing enforces it, and the existing files don't fully pass it, so match the style of the file being edited instead: `-` bullets followed by 3 spaces, ordered items followed by 2 spaces, and 4-space indentation for nested content.
 
 ## Architecture
 
@@ -40,7 +40,7 @@ The package `mkdocs_meta_descriptions_plugin` has four small modules:
     -   `on_page_content` skips pages with a front matter description; otherwise it cuts the rendered HTML at the first `<h2>`–`<h6>`, takes the first `<p>` that isn't directly inside `div.admonition`, and stores its HTML-escaped text in `page.meta["description"]`, applying `trim` and `fallback_if_short`. Leaving the description unset is what makes the theme fall back to `site_description`.
     -   `on_post_page` runs the length checks and collects pages for the export.
     -   `on_post_build` logs the summary and writes the CSV.
--   `common.py`: the `logger` singleton. It branches on the installed MkDocs version, using the threshold constant defined at the top of the file: `get_plugin_logger` from that version onwards, and a plain `logging` logger with a `[meta-descriptions] ` prefix before it. `quiet` downgrades `INFO` messages to `DEBUG`.
+-   `common.py`: the `logger` singleton. It branches on the installed MkDocs version, using the threshold constant defined at the top of the file: `get_plugin_logger` from that version onwards, and a plain `logging` logger that prefixes messages with `[meta-descriptions]` before it. `quiet` downgrades `INFO` messages to `DEBUG`.
 -   `checker.py`: the `checker` singleton that emits the `enable_checks` warnings for missing, too short, or too long descriptions.
 -   `export.py`: `Export` reads the meta descriptions back from the **generated HTML files** in `site_dir`, not from `page.meta`, so the CSV reflects what the theme actually rendered, including the `site_description` fallback.
 
@@ -80,10 +80,25 @@ Its structure is: what the plugin does for each page (a 3-step list that must st
 -   Checker tests assert on exact log lines in `result.stderr`, with separate expected strings on each side of the MkDocs version threshold imported from `common.py`.
 -   `tests/mkdocs.yml` is also the config that CI uses to deploy the demo site to GitHub Pages.
 
+## Commits and pull requests
+
+Commit subjects use a `prefix: Capitalized imperative summary` format. Pull requests are squash-merged, so the PR title becomes the commit subject on `main` (GitHub appends the PR number) and must follow the same format.
+
+| Prefix | Use for |
+| --- | --- |
+| `feat` | New options or capabilities, newly supported Python versions |
+| `fix` | Bug fixes in the plugin or its packaging |
+| `doc` | Changes to `README.md`, `CHANGELOG.md` and other user documentation |
+| `clean` | Refactors and cleanups with no behavior change |
+| `test` | Changes that only touch `tests/` |
+| `toolchain` | CI, build and release tooling, developer tooling such as `CLAUDE.md` and `.claude/` |
+
+Note that the prefix is `doc`, not `docs`. `build(deps)` is used by Dependabot only.
+
 ## Release and CI
 
 `.github/workflows/test-build-deploy.yml` runs on every push: tests on every Python version in the workflow's `python-version` matrix, coverage to Coveralls, then a build. Pushes to `main` publish to Test PyPI and deploy GitHub Pages; pushing a tag also publishes to PyPI.
 
-The package version comes from git tags through `setuptools_scm`; there is no version string in the source. The supported Python versions are defined in two places that must stay in sync: the `python-version` matrix in the workflow and the classifiers in `setup.py`. Runtime dependencies live in the root `requirements.txt`, which `setup.py` reads as `install_requires`.
+The package version comes from git tags through `setuptools_scm`; there is no version string in the source. The supported Python versions are defined in two places that must stay in sync: the `python-version` matrix in the workflow and the classifiers in `setup.py`. Runtime dependencies live in the root `requirements.txt`, which `setup.py` reads as `install_requires`. `setuptools_scm` also adds every git-tracked file to the sdist; `MANIFEST.in` excludes the Claude Code files from it.
 
 Pushing a `vX.Y.Z` tag is the release and can't be undone on PyPI, so never create or push tags without being asked. `.claude/settings.json` pre-approves the routine git, gh, pytest, pip and mkdocs commands, but keeps force pushes and tag pushes behind a confirmation prompt.

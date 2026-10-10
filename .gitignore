@@ -109,6 +109,9 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
+# Claude Code personal settings
+.claude/settings.local.json
+
 # MkDocs documentation
 /site
 /tests/site
