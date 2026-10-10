@@ -46,6 +46,29 @@ The package `mkdocs_meta_descriptions_plugin` has four small modules:
 
 Adding or changing a plugin option touches several places: `config_scheme` in `plugin.py`, `schema.json` (JSON schema used by editors for `mkdocs.yml` validation), the options section of `README.md`, and `CHANGELOG.md`.
 
+Option interactions that are easy to miss:
+
+-   None of the options ever change a description that comes from the page front matter. `trim` and `fallback_if_short` only apply to first-paragraph descriptions; `enable_checks` still warns about front matter descriptions.
+-   `min_length` is used by both `enable_checks` and `fallback_if_short`; `max_length` is used by both `enable_checks` and `trim`.
+
+## README.md
+
+`README.md` is the only user documentation, and `setup.py` also publishes it as the PyPI long description. Because of that, images must use absolute `raw.githubusercontent.com` URLs, not relative paths.
+
+Its structure is: what the plugin does for each page (a 3-step list that must stay in sync with `on_page_content`), a setup section, and a "Configuring the plugin" section with a YAML block listing **every option with its default**, followed by one `` ### `option_name` `` heading per option in the same order.
+
+-   Each option section starts with "If `true`, the plugin …. The default is `false`." (or the equivalent for numeric options), then says when the option is useful and which other options it depends on.
+-   The option headings are link targets: `schema.json` and `CHANGELOG.md` link to `README.md#option_name`. Renaming a heading breaks those links.
+
+## CHANGELOG.md
+
+`CHANGELOG.md` follows Keep a Changelog and Semantic Versioning, and only lists changes that are visible to users of the plugin. Dependency bumps, CI and tooling changes are left out.
+
+-   There is no "Unreleased" section. Each release has a heading in the form `## [vX.Y.Z](https://www.github.com/prcr/mkdocs-meta-descriptions-plugin/compare/vPREVIOUS...vX.Y.Z) (YYYY-MM-DD)`, newest first, with `### Added`, `### Changed`, `### Removed` and `### Fixed` subsections as needed.
+-   The version in the heading must match the git tag that is pushed for the release, since the tag is what sets the package version.
+-   Versioning as practiced so far: dropping a Python version is a major release, a new option or a newly supported Python version is a minor release, and bug fixes are patch releases.
+-   Entries for options link to the README anchor, entries for issues end with "Fixes [#N](issue URL).", and outside contributors are thanked by GitHub handle.
+
 ## Tests
 
 `tests/test_plugin.py` is integration-only: a module-scoped `build` fixture runs a real `mkdocs build` through Click's `CliRunner` for **every `tests/*.yml` file**, each with both `--use-directory-urls` and `--no-directory-urls`, against the pages in `tests/docs/`. Every test then runs once per combination.
@@ -63,4 +86,4 @@ Adding or changing a plugin option touches several places: `config_scheme` in `p
 
 The package version comes from git tags through `setuptools_scm`; there is no version string in the source. When supported Python versions change, update both the CI matrix and the classifiers in `setup.py`. Runtime dependencies live in the root `requirements.txt`, which `setup.py` reads as `install_requires`.
 
-`CHANGELOG.md` follows Keep a Changelog and Semantic Versioning.
+Pushing a `vX.Y.Z` tag is the release and can't be undone on PyPI, so never create or push tags without being asked. `.claude/settings.json` pre-approves the routine git, gh, pytest, pip and mkdocs commands, but keeps force pushes and tag pushes behind a confirmation prompt.
