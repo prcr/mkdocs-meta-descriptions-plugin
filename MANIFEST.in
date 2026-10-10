@@ -1,0 +1,3 @@
+# setuptools_scm adds every git-tracked file to the sdist
+prune .claude
+exclude CLAUDE.md
